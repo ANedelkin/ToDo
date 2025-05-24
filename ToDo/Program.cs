@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ToDo.Data;
+using ToDo.Infrastructure.Data;
 
 namespace ToDo;
 

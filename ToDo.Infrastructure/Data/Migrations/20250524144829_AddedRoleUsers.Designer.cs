@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDo.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ToDo.Infrastructure.Data;
 namespace ToDo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250524144829_AddedRoleUsers")]
+    partial class AddedRoleUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,21 +384,6 @@ namespace ToDo.Data.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserTask", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "TaskId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("UserTasks");
-                });
-
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -534,25 +522,6 @@ namespace ToDo.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserTask", b =>
-                {
-                    b.HasOne("ToDo.Infrastructure.Data.Models.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("ToDo.Infrastructure.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.Navigation("Task");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

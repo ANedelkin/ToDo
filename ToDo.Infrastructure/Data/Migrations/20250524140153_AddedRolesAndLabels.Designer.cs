@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDo.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ToDo.Infrastructure.Data;
 namespace ToDo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250524140153_AddedRolesAndLabels")]
+    partial class AddedRolesAndLabels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -265,21 +268,6 @@ namespace ToDo.Data.Migrations
                     b.ToTable("Labels");
                 });
 
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.LabelTask", b =>
-                {
-                    b.Property<int>("LabelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LabelId", "TaskId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("LabelTasks");
-                });
-
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -336,21 +324,6 @@ namespace ToDo.Data.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.RoleUser", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RoleId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoleUsers");
-                });
-
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Task", b =>
                 {
                     b.Property<int>("Id")
@@ -379,21 +352,6 @@ namespace ToDo.Data.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserTask", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "TaskId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("UserTasks");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.User", b =>
@@ -465,25 +423,6 @@ namespace ToDo.Data.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.LabelTask", b =>
-                {
-                    b.HasOne("ToDo.Infrastructure.Data.Models.Label", "Label")
-                        .WithMany()
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("ToDo.Infrastructure.Data.Models.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.Navigation("Label");
-
-                    b.Navigation("Task");
-                });
-
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Project", b =>
                 {
                     b.HasOne("ToDo.Infrastructure.Data.Models.User", "Owner")
@@ -506,25 +445,6 @@ namespace ToDo.Data.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.RoleUser", b =>
-                {
-                    b.HasOne("ToDo.Infrastructure.Data.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("ToDo.Infrastructure.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Task", b =>
                 {
                     b.HasOne("ToDo.Infrastructure.Data.Models.Project", "Project")
@@ -534,25 +454,6 @@ namespace ToDo.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserTask", b =>
-                {
-                    b.HasOne("ToDo.Infrastructure.Data.Models.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("ToDo.Infrastructure.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.Navigation("Task");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

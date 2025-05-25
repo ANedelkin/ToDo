@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
+using ToDo.Infrastructure.Data.Models.Interfaces;
 
 namespace ToDo.Infrastructure.Data.Models
 {
-    public class Label
+    public class Label : IEntity
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         [Required]
         [MaxLength(LabelConstants.titleMaxLength)]
         public string Title { get; set; } = string.Empty;
@@ -22,7 +23,7 @@ namespace ToDo.Infrastructure.Data.Models
         [MaxLength(CommonConstants.colorHexMaxLength)]
         public string ColorHex { get; set; } = string.Empty;
         [Required]
-        public int ProjectId { get; set; }
+        public string ProjectId { get; set; } = string.Empty;
         [ForeignKey(nameof(ProjectId))]
         public virtual Project? Project { get; set; }
     }

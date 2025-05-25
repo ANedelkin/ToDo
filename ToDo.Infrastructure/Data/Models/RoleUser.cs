@@ -11,7 +11,7 @@ namespace ToDo.Infrastructure.Data.Models
     public class RoleUser
     {
         [Required]
-        public int RoleId { get; set; }
+        public string RoleId { get; set; } = string.Empty;
         [ForeignKey(nameof(RoleId))]
         public virtual Role? Role { get; set; }
         [Required]

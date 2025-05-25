@@ -235,11 +235,8 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Label", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ColorHex")
                         .IsRequired()
@@ -250,8 +247,9 @@ namespace ToDo.Data.Migrations
                         .HasMaxLength(320)
                         .HasColumnType("nvarchar(320)");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -267,11 +265,11 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.LabelTask", b =>
                 {
-                    b.Property<int>("LabelId")
-                        .HasColumnType("int");
+                    b.Property<string>("LabelId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
+                    b.Property<string>("TaskId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LabelId", "TaskId");
 
@@ -282,11 +280,8 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Project", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
@@ -306,11 +301,8 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ColorHex")
                         .IsRequired()
@@ -321,8 +313,9 @@ namespace ToDo.Data.Migrations
                         .HasMaxLength(320)
                         .HasColumnType("nvarchar(320)");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -338,8 +331,8 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.RoleUser", b =>
                 {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -353,11 +346,8 @@ namespace ToDo.Data.Migrations
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Task", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(320)
@@ -366,8 +356,9 @@ namespace ToDo.Data.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -386,8 +377,8 @@ namespace ToDo.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
+                    b.Property<string>("TaskId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "TaskId");
 

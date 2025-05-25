@@ -11,11 +11,11 @@ namespace ToDo.Infrastructure.Data.Models
     public class UserTask
     {
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         [ForeignKey(nameof(UserId))]
         public virtual User? User { get; set; }
         [Required]
-        public int TaskId { get; set; }
+        public string TaskId { get; set; } = string.Empty;
         [ForeignKey(nameof(TaskId))]
         public virtual Task? Task { get; set; }
     }

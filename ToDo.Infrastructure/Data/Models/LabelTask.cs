@@ -11,11 +11,11 @@ namespace ToDo.Infrastructure.Data.Models
     public class LabelTask
     {
         [Required]
-        public int LabelId { get; set; }
+        public string LabelId { get; set; } = string.Empty;
         [ForeignKey(nameof(LabelId))]
         public virtual Label? Label { get; set; }
         [Required]
-        public int TaskId { get; set; }
+        public string TaskId { get; set; } = string.Empty;
         [ForeignKey(nameof(TaskId))]
         public virtual Task? Task { get; set; }
     }

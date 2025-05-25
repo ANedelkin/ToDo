@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
+using ToDo.Infrastructure.Data.Models.Interfaces;
 
 namespace ToDo.Infrastructure.Data.Models
 {
-    public class Project
+    public class Project : IEntity
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         [Required]
         [MaxLength(ProjectConstants.nameMaxLength)]
         public string Title { get; set; } = string.Empty;

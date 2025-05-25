@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Infrastructure.Data;
+using ToDo.Infrastructure.Data.Common;
 
 namespace ToDo;
 
@@ -19,6 +20,8 @@ public class Program
         builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
+
+        builder.Services.AddScoped<IRepository, Repository>();
 
         var app = builder.Build();
 

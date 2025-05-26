@@ -8,7 +8,9 @@ namespace ToDo.Constants
 {
     public static class LabelConstants
     {
+        public const int titleMinLength = 1;
         public const int titleMaxLength = 64;
+        public const int descriptionMinLength = 1;
         public const int descriptionMaxLength = 320;
     }
 }

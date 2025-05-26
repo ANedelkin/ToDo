@@ -22,6 +22,8 @@ namespace ToDo.Infrastructure.Data.Models
         [Required]
         public DateTime DueDate { get; set; }
         [Required]
+        public Constants.TaskStatus TaskStatus { get; set; }
+        [Required]
         public string ProjectId { get; set; } = string.Empty;
         [ForeignKey(nameof(ProjectId))]
         public virtual Project? Project { get; set; }

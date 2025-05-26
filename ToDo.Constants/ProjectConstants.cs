@@ -8,7 +8,9 @@ namespace ToDo.Constants
 {
     public static class ProjectConstants
     {
-        public const int nameMinLength = 1;
-        public const int nameMaxLength = 64;
+        public const int titleMinLength = 1;
+        public const int titleMaxLength = 64;
+        public const int descriptionMinLength = 1;
+        public const int descriptionMaxLength = 1000;
     }
 }

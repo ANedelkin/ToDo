@@ -9,11 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
-using ToDo.Infrastructure.Data.Models.Interfaces;
 
 namespace ToDo.Infrastructure.Data.Models
 {
-    public class Role : IEntity
+    public class Role
     {
         [Key]
         public string Id { get; set; } = string.Empty;

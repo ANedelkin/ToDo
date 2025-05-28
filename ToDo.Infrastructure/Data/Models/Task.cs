@@ -6,11 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
-using ToDo.Infrastructure.Data.Models.Interfaces;
 
 namespace ToDo.Infrastructure.Data.Models
 {
-    public class Task : IEntity
+    public class Task
     {
         [Key]
         public string Id { get; set; } = string.Empty;

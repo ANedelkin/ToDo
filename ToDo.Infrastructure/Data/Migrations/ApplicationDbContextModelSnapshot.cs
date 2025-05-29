@@ -260,7 +260,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Labels");
+                    b.ToTable("Labels", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.LabelTask", b =>
@@ -275,7 +275,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("LabelTasks");
+                    b.ToTable("LabelTasks", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Project", b =>
@@ -301,7 +301,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Role", b =>
@@ -331,7 +331,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.RoleUser", b =>
@@ -346,7 +346,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RoleUsers");
+                    b.ToTable("RoleUsers", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Task", b =>
@@ -377,7 +377,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserTask", b =>
@@ -392,7 +392,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("UserTasks");
+                    b.ToTable("UserTasks", (string)null);
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.User", b =>

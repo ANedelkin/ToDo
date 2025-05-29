@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ToDo.Models;
+using ToDo.Core.Models;
+using ToDo.Core.Models.ViewModels;
 
 namespace ToDo.Controllers;
 

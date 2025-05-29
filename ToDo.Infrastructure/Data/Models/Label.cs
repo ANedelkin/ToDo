@@ -11,6 +11,14 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Label
     {
+        public Label(string title, string? description, string colorHex, string projectId)
+        {
+            Title = title;
+            Description = description;
+            ColorHex = colorHex;
+            ProjectId = projectId;
+        }
+
         [Key]
         public string Id { get; set; } = string.Empty;
         [Required]

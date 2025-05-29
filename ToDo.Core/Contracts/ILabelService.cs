@@ -11,10 +11,10 @@ namespace ToDo.Core.Contracts
 {
     interface ILabelService
     {
-        public Task<List<ListedLabel>> GetProjectLabels(string Id);
-        public Task<LabelVM> GetLabel(string Id); 
-        public Task<IActionResult> UpdateLabel(string Id, LabelVM newLabel);
-        public Task<IActionResult> AddLabel(LabelVM label);
-        public Task<IActionResult> DeleteLabel(string labelId);
+        public Task<List<ListedLabel>> GetProjectLabels(string projectId);
+        public Task<LabelVM?> GetLabel(string id); 
+        public Task AddLabel(LabelVM label, string projectId);
+        public Task UpdateLabel(string id, LabelVM newLabel);
+        public Task DeleteLabel(string labelId);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
+using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models.ViewModels
 {
@@ -15,11 +16,12 @@ namespace ToDo.Core.Models.ViewModels
         [MaxLength(LabelConstants.titleMaxLength)]
         public string Title { get; set; }
         [MaxLength(TaskConstants.descriptionMaxLength)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Required]
         [RegularExpression("#[0-9a-fA-F]{6}\b")]
         public string ColorHex { get; set; }
-        public LabelVM(string title, string description, string colorHex)
+        public LabelVM(Label label) : this(label.Title, label.Description, label.ColorHex) { }
+        public LabelVM(string title, string? description, string colorHex)
         {
             Title = title;
             Description = description;

@@ -11,8 +11,6 @@ namespace ToDo.Core.Models.ViewModels
     public class RoleVM
     {
         [Required]
-        public string Id { get; set; }
-        [Required]
         [MinLength(LabelConstants.titleMinLength)]
         [MaxLength(LabelConstants.titleMaxLength)]
         public string Title { get; set; }
@@ -23,9 +21,8 @@ namespace ToDo.Core.Models.ViewModels
         public string ColorHex { get; set; }
         [Required]
         public List<ListedUser> Users { get; set; }
-        public RoleVM(string id, string title, string description, string colorHex, List<ListedUser> users)
+        public RoleVM(string title, string description, string colorHex, List<ListedUser> users)
         {
-            Id = id;
             Title = title;
             Description = description;
             ColorHex = colorHex;

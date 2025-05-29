@@ -12,8 +12,6 @@ namespace ToDo.Core.Models.ViewModels
     public class ProjectDetailsVM
     {
         [Required]
-        public string Id { get; set; }
-        [Required]
         [MinLength(ProjectConstants.titleMinLength)]
         [MaxLength(ProjectConstants.titleMaxLength)]
         public string Title { get; set; }

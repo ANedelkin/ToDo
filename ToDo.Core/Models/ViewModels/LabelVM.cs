@@ -11,8 +11,6 @@ namespace ToDo.Core.Models.ViewModels
     public class LabelVM
     {
         [Required]
-        public string Id { get; set; }
-        [Required]
         [MinLength(LabelConstants.titleMinLength)]
         [MaxLength(LabelConstants.titleMaxLength)]
         public string Title { get; set; }
@@ -21,9 +19,8 @@ namespace ToDo.Core.Models.ViewModels
         [Required]
         [RegularExpression("#[0-9a-fA-F]{6}\b")]
         public string ColorHex { get; set; }
-        public LabelVM(string id, string title, string description, string colorHex)
+        public LabelVM(string title, string description, string colorHex)
         {
-            Id = id;
             Title = title;
             Description = description;
             ColorHex = colorHex;

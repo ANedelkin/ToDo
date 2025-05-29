@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ToDo.Core.Models;
+using ToDo.Core.Models.ViewModels;
+
+namespace ToDo.Core.Contracts
+{
+    interface IProjectService
+    {
+        public Task<List<ListedProject>> GetUserProjects(string userId);
+        public Task<ProjectVM> GetProjectTasks(string projectId);
+        public Task<ProjectDetailsVM> GetProjectDetails(string projectId);
+        public Task<IActionResult> CreateProject(ProjectDetailsVM projectDetails);
+        public Task<IActionResult> EditProject(string Id, ProjectDetailsVM projectDetails);
+        public Task<IActionResult> RemoveProject(string Id);
+
+    }
+}

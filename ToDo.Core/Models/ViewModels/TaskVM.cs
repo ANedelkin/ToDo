@@ -11,8 +11,6 @@ namespace ToDo.Core.Models.ViewModels
     public class TaskVM
     {
         [Required]
-        public string Id { get; set; }
-        [Required]
         [MinLength(TaskConstants.titleMinLength)]
         [MaxLength(TaskConstants.titleMaxLength)]
         public string Title { get; set; }
@@ -24,9 +22,8 @@ namespace ToDo.Core.Models.ViewModels
         public List<ListedLabel> Labels { get; set; }
         [Required]
         public List<ListedUser> Participants { get; set; }
-        public TaskVM(string id, string title, string description, DateTime dueDate, List<ListedLabel> labels, List<ListedUser> participants)
+        public TaskVM(string title, string description, DateTime dueDate, List<ListedLabel> labels, List<ListedUser> participants)
         {
-            Id = id;
             Title = title;
             Description = description;
             DueDate = dueDate;

@@ -15,7 +15,7 @@ namespace ToDo.Infrastructure.Data.Common
         Task AddAsync<T>(T entity) where T : class;
         Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class;
         Task UpdateAsync<T>(string Id, T newEntity) where T : class;
-        Task DeleteAsync<T>(string id) where T : class;
+        Task DeleteByIdAsync<T>(string id) where T : class;
         Task<int> SaveChangesAsync();
     }
 }

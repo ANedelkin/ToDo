@@ -48,17 +48,16 @@ namespace ToDo.Infrastructure.Data.Common
         {
             T oldEntity = await GetByIdAsync<T>(Id) ?? throw new KeyNotFoundException();
             _context.Entry(oldEntity).CurrentValues.SetValues(newEntity);
-            await SaveChangesAsync();
         }
-        public async Task DeleteAsync<T>(string id) where T : class
+        public async Task DeleteByIdAsync<T>(string id) where T : class
         {
             T entity = await GetByIdAsync<T>(id) ?? throw new KeyNotFoundException();
             DbSet<T>().Remove(entity);
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDo.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ToDo.Infrastructure.Data;
 namespace ToDo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250530200852_ImprovedEntities")]
+    partial class ImprovedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,7 +248,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("RoleUser", (string)null);
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Label", b =>
@@ -275,7 +278,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Labels", (string)null);
+                    b.ToTable("Labels");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.LabelTask", b =>
@@ -290,7 +293,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("LabelTasks", (string)null);
+                    b.ToTable("LabelTasks");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Project", b =>
@@ -316,7 +319,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Role", b =>
@@ -346,7 +349,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.Task", b =>
@@ -377,7 +380,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.UserProject", b =>
@@ -392,7 +395,7 @@ namespace ToDo.Data.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("UserProject", (string)null);
+                    b.ToTable("UserProject");
                 });
 
             modelBuilder.Entity("ToDo.Infrastructure.Data.Models.User", b =>

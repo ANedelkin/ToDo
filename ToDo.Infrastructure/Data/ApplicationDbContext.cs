@@ -18,51 +18,42 @@ public class ApplicationDbContext : IdentityDbContext
 
         //LabelTask
 
-        builder.Entity<LabelTask>().HasKey(lt => new { lt.LabelId, lt.TaskId });
+        builder.Entity<Models.Label>()
+               .HasMany(l => l.Tasks)
+               .WithMany(t => t.Labels)
+               .UsingEntity<LabelTask>(
+                    lt => lt.HasOne(lt => lt.Task)
+                            .WithMany()
+                            .HasForeignKey(lt => lt.TaskId)
+                            .OnDelete(DeleteBehavior.Restrict),
+                    lt => lt.HasOne(lt => lt.Label)
+                            .WithMany()
+                            .HasForeignKey(lt => lt.LabelId)
+                            .OnDelete(DeleteBehavior.Cascade),
+                    lt => lt.HasKey(x => new { x.LabelId, x.TaskId })
+                );
 
-        builder.Entity<LabelTask>()
-            .HasOne(lt => lt.Label)
-            .WithMany()
-            .HasForeignKey(lt => lt.LabelId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        // UserProject
 
-        builder.Entity<LabelTask>()
-            .HasOne(lt => lt.Task)
-            .WithMany()
-            .HasForeignKey(lt => lt.TaskId)
-            .OnDelete(DeleteBehavior.ClientCascade);
-
-        //RoleUser
-
-        builder.Entity<RoleUser>().HasKey(ru => new { ru.RoleId, ru.UserId });
-
-        builder.Entity<RoleUser>()
-            .HasOne(ru => ru.Role)
-            .WithMany()
-            .HasForeignKey(ru => ru.RoleId)
-            .OnDelete(DeleteBehavior.ClientCascade);
-
-        builder.Entity<RoleUser>()
-            .HasOne(ru => ru.User)
-            .WithMany()
-            .HasForeignKey(ru => ru.UserId)
-            .OnDelete(DeleteBehavior.ClientCascade);
-
-        //UserTask
-
-        builder.Entity<UserTask>().HasKey(ut => new { ut.UserId, ut.TaskId });
-
-        builder.Entity<UserTask>()
-            .HasOne(ut => ut.User)
-            .WithMany()
-            .HasForeignKey(ut => ut.UserId)
-            .OnDelete(DeleteBehavior.ClientCascade);
-
-        builder.Entity<UserTask>()
-            .HasOne(ut => ut.Task)
-            .WithMany()
-            .HasForeignKey(ut => ut.TaskId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder.Entity<Project>()
+               .HasMany(p => p.Participants)
+               .WithMany(u => u.ParticipatedProjects)
+               .UsingEntity<UserProject>(
+                   up => up.HasOne(up => up.User)
+                           .WithMany()
+                           .HasForeignKey(up => up.UserId)
+                           .OnDelete(DeleteBehavior.ClientCascade),
+                   up => up.HasOne(up => up.Project)
+                           .WithMany()
+                           .HasForeignKey(up => up.ProjectId)
+                           .OnDelete(DeleteBehavior.ClientCascade),
+                   up => up.HasKey(up => new { up.UserId, up.ProjectId })
+               );
+        builder.Entity<Project>()
+               .HasOne(p => p.Owner)
+               .WithMany(u => u.CreatedProjects)
+               .HasForeignKey(p => p.OwnerId)
+               .OnDelete(DeleteBehavior.ClientCascade);
     }
 
     public DbSet<User> Users { get; set; }
@@ -70,7 +61,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Models.Task> Tasks { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Models.Label> Labels { get; set; }
-    public DbSet<LabelTask> LabelTasks { get;set; }
-    public DbSet<RoleUser> RoleUsers { get; set; }
-    public DbSet<UserTask> UserTasks { get; set; }
+    public DbSet<LabelTask> LabelTasks { get; set; }
 }

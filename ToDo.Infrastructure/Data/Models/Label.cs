@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDo.Constants;
 
 namespace ToDo.Infrastructure.Data.Models
@@ -33,5 +28,6 @@ namespace ToDo.Infrastructure.Data.Models
         public string ProjectId { get; set; } = string.Empty;
         [ForeignKey(nameof(ProjectId))]
         public virtual Project? Project { get; set; }
+        public List<Task> Tasks { get; set; } = new List<Task>();
     }
 }

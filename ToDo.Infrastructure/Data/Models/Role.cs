@@ -1,13 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDo.Constants;
 
 namespace ToDo.Infrastructure.Data.Models
@@ -28,5 +20,6 @@ namespace ToDo.Infrastructure.Data.Models
         public string ProjectId { get; set; } = string.Empty;
         [ForeignKey(nameof(ProjectId))]
         public virtual Project? Project { get; set; }
+        public List<User> Users { get; set; } = new List<User>();
     }
 }

@@ -13,10 +13,10 @@ namespace ToDo.Core.Contracts
     {
         public Task<List<ListedProject>> GetUserProjects(string userId);
         public Task<ProjectVM> GetProjectTasks(string projectId);
-        public Task<ProjectDetailsVM> GetProjectDetails(string projectId);
-        public Task<IActionResult> CreateProject(ProjectDetailsVM projectDetails);
-        public Task<IActionResult> EditProject(string Id, ProjectDetailsVM projectDetails);
-        public Task<IActionResult> RemoveProject(string Id);
+        public Task<ProjectDetailsVM> GetProjectDetails(string id);
+        public Task CreateProject(string ownerId, ProjectDetailsVM projectDetails);
+        public Task EditProject(string id, ProjectDetailsVM projectDetails);
+        public Task RemoveProject(string id);
 
     }
 }

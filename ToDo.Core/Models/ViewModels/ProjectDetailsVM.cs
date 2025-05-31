@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Constants;
+using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models.ViewModels
 {
@@ -21,9 +22,9 @@ namespace ToDo.Core.Models.ViewModels
         public string Description { get; set; }
         [Required]
         public List<ListedUser> Participants { get; set; }
-        public ProjectDetailsVM(string id, string title, string description, List<ListedUser> participants)
+        public ProjectDetailsVM(Project project) : this(project.Title, project.Description, project.Participants.Select(p => new ListedUser(p)).ToList()) { }
+        public ProjectDetailsVM(string title, string description, List<ListedUser> participants)
         {
-            Id = id;
             Title = title;
             Description = description;
             Participants = participants;

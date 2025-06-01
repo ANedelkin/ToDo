@@ -44,9 +44,9 @@ namespace ToDo.Infrastructure.Data.Common
         {
             await DbSet<T>().AddRangeAsync(entities);
         }
-        public async Task UpdateAsync<T>(string Id, T newEntity) where T : class
+        public async Task UpdateAsync<T>(string id, T newEntity) where T : class
         {
-            T oldEntity = await GetByIdAsync<T>(Id) ?? throw new KeyNotFoundException();
+            T oldEntity = await GetByIdAsync<T>(id) ?? throw new KeyNotFoundException();
             _context.Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
         public async Task DeleteByIdAsync<T>(string id) where T : class

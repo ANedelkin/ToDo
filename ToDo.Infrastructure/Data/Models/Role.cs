@@ -6,6 +6,14 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Role
     {
+        public Role(string title, string? description, string colorHex, string projectId)
+        {
+            Title = title;
+            Description = description;
+            ColorHex = colorHex;
+            ProjectId = projectId;
+        }
+
         [Key]
         public string Id { get; set; } = string.Empty;
         [Required]

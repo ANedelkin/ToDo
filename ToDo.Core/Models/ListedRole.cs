@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models
 {
     public struct ListedRole
     {
-        readonly string id;
-        readonly string title;
-        readonly string description;
-        readonly string colorHex;
-        ListedRole(string id, string title, string description, string colorHex)
+        public readonly string id;
+        public readonly string title;
+        public readonly string? description;
+        public readonly string colorHex;
+        public ListedRole(Role role) : this(role.Id, role.Title, role.Description, role.ColorHex) { }
+        public ListedRole(string id, string title, string? description, string colorHex)
         {
             this.id = id;
             this.title = title;

@@ -11,10 +11,10 @@ namespace ToDo.Core.Contracts
 {
     interface IRoleService
     {
-        public Task<List<ListedRole>> GetProjectRoles(string Id);
-        public Task<RoleVM> GetRole(string Id);
-        public Task<IActionResult> UpdateRole(string Id, RoleVM newRole);
-        public Task<IActionResult> AddRole(RoleVM role);
-        public Task<IActionResult> DeleteRole(string Id);
+        public Task<List<ListedRole>> GetProjectRoles(string id);
+        public Task<RoleVM> GetRole(string id);
+        public Task UpdateRole(string id, RoleVM newRole);
+        public Task AddRole(string projectId, RoleVM role);
+        public Task DeleteRole(string id);
     }
 }

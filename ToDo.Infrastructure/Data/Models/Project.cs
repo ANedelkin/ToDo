@@ -6,6 +6,13 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Project
     {
+        public Project(string title, string description, string ownerId)
+        {
+            Title = title;
+            Description = description;
+            OwnerId = ownerId;
+        }
+
         [Key]
         public string Id { get; set; } = string.Empty;
         [Required]

@@ -16,6 +16,6 @@ namespace ToDo.Core.Contracts
         public Task<IActionResult> AddTask(TaskVM task, Constants.TaskStatus status);
         public Task<IActionResult> UpdateTask(string taskId, TaskVM task);
         public Task<IActionResult> ChangeTaskStatus(string taskId, Constants.TaskStatus newStatus);
-        public Task<IActionResult> DeleteTask(string Id);
+        public Task<IActionResult> DeleteTask(string id);
     }
 }

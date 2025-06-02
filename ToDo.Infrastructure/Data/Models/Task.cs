@@ -6,6 +6,15 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Task
     {
+        public Task(string id, string title, string? description, DateTime dueDate, Constants.TaskStatus taskStatus, string projectId)
+        {
+            Title = title;
+            Description = description;
+            DueDate = dueDate;
+            TaskStatus = taskStatus;
+            ProjectId = projectId;
+        }
+
         [Key]
         public string Id { get; set; } = string.Empty;
         [Required]

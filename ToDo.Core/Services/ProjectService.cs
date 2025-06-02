@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDo.Core.Contracts;
 using ToDo.Core.Models;
 using ToDo.Core.Models.ViewModels;
 using ToDo.Infrastructure.Data.Common;
 using ToDo.Infrastructure.Data.Models;
 
-namespace ToDo.Core.Contracts
+namespace ToDo.Core.Services
 {
     class ProjectService : IProjectService
     {
@@ -36,23 +37,17 @@ namespace ToDo.Core.Contracts
         }
         public async System.Threading.Tasks.Task CreateProject(string ownerId, ProjectDetailsVM projectDetails)
         {
-            Project project = new Project()
-            {
-                Title = projectDetails.Title,
-                Description = projectDetails.Description,
-                OwnerId = ownerId
-            };
+            Project project = new Project(projectDetails.Title, projectDetails.Description, ownerId);
             await _repository.AddAsync<Project>(project);
             await _repository.SaveChangesAsync();
         }
         public async System.Threading.Tasks.Task EditProject(string Id, ProjectDetailsVM projectDetails)
         {
-            Project project = new Project()
-            {
-                Title = projectDetails.Title,
-                Description = projectDetails.Description,
-                OwnerId = (await _repository.GetByIdAsync<Project>(Id)).OwnerId
-            };
+            Project project = new Project(
+                projectDetails.Title,
+                projectDetails.Description,
+                (await _repository.GetByIdAsync<Project>(Id)).OwnerId
+            );
             await _repository.UpdateAsync<Project>(Id, project);
             await _repository.SaveChangesAsync();
         }

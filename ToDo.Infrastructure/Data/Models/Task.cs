@@ -6,7 +6,7 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Task
     {
-        public Task(string id, string title, string? description, DateTime dueDate, Constants.TaskStatus taskStatus, string projectId)
+        public Task(string title, string? description, DateTime dueDate, Constants.TaskStatus taskStatus, string projectId)
         {
             Title = title;
             Description = description;
@@ -31,5 +31,6 @@ namespace ToDo.Infrastructure.Data.Models
         [ForeignKey(nameof(ProjectId))]
         public virtual Project? Project { get; set; }
         public List<Label> Labels { get; set; } = new List<Label>();
+        public List<User> Participants { get; set; } = new List<User>();
     }
 }

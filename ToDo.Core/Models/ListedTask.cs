@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ToDo.Core.Models
+﻿namespace ToDo.Core.Models
 {
     public struct ListedTask
     {
-        readonly string id;
-        readonly string title;
-        readonly TaskStatus status;
-        ListedTask(string id, string title, TaskStatus status)
+        public readonly string id;
+        public readonly string title;
+        public readonly Constants.TaskStatus status;
+        public ListedTask(Infrastructure.Data.Models.Task task) : this(task.Id, task.Title, task.TaskStatus) { }
+        public ListedTask(string id, string title, Constants.TaskStatus status)
         {
             this.id = id;
             this.title = title;

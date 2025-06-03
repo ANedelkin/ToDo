@@ -11,7 +11,7 @@ using ToDo.Infrastructure.Data;
 
 namespace ToDo.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ToDoDbContext))]
     [Migration("20250526153601_AddedProjectDescription")]
     partial class AddedProjectDescription
     {

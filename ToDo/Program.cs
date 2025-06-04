@@ -18,11 +18,13 @@ public class Program
         builder.Services.AddDbContext<ToDoDbContext>(options =>
             options.UseSqlServer(connectionString));
 
+        //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ToDoDbContext>();
+
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
-            options.SignIn.RequireConfirmedAccount = true;
+            options.SignIn.RequireConfirmedAccount = false;
         })
         .AddEntityFrameworkStores<ToDoDbContext>()
         .AddDefaultTokenProviders();

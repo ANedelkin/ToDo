@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ToDo.Core.Contracts;
+using ToDo.Core.Services;
 using ToDo.Infrastructure.Data;
 using ToDo.Infrastructure.Data.Common;
 using ToDo.Infrastructure.Data.Models;
@@ -26,6 +28,11 @@ public class Program
 
         builder.Services.AddScoped<IRepository, Repository>();
 
+        builder.Services.AddScoped<ILabelService, LabelService>();
+        builder.Services.AddScoped<IProjectService, ProjectService>();
+        builder.Services.AddScoped<IRoleService, RoleService>();
+        builder.Services.AddScoped<ITaskService, TaskService>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -48,7 +55,7 @@ public class Program
         app.MapStaticAssets();
         app.MapControllerRoute(
             name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}")
+            pattern: "{controller=Projects}")
             .WithStaticAssets();
         app.MapRazorPages()
            .WithStaticAssets();

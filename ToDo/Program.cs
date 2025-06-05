@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDo.Infrastructure.Data;
 using ToDo.Infrastructure.Data.Common;
+using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo;
 
@@ -15,10 +16,12 @@ public class Program
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
+
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+        builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI();
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddScoped<IRepository, Repository>();

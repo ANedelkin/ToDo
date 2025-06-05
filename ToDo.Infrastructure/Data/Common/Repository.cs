@@ -9,8 +9,8 @@ namespace ToDo.Infrastructure.Data.Common
 {
     public class Repository : IRepository
     {
-        private readonly ToDoDbContext _context;
-        public Repository(ToDoDbContext context)
+        private readonly DbContext _context;
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -11,7 +11,7 @@ using ToDo.Infrastructure.Data;
 
 namespace ToDo.Data.Migrations
 {
-    [DbContext(typeof(ToDoDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250526153834_AddedTaskStatus")]
     partial class AddedTaskStatus
     {

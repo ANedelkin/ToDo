@@ -5,9 +5,9 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Infrastructure.Data;
 
-public class ToDoDbContext : IdentityDbContext<User>
+public class ApplicationDbContext : IdentityDbContext
 {
-    public ToDoDbContext(DbContextOptions<ToDoDbContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }

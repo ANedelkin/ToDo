@@ -9,7 +9,7 @@ using ToDo.Core.Models;
 
 namespace ToDo.Core.Contracts
 {
-    interface IRoleService
+    public interface IRoleService
     {
         public Task<List<ListedRole>> GetProjectRoles(string id);
         public Task<RoleVM> GetRole(string id);

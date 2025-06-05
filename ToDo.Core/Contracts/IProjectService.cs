@@ -9,7 +9,7 @@ using ToDo.Core.Models.ViewModels;
 
 namespace ToDo.Core.Contracts
 {
-    interface IProjectService
+    public interface IProjectService
     {
         public Task<List<ListedProject>> GetUserProjects(string userId);
         public Task<ProjectVM> GetProjectTasks(string projectId);

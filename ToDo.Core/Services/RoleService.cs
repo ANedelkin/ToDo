@@ -6,7 +6,7 @@ using ToDo.Core.Contracts;
 
 namespace ToDo.Core.Services
 {
-    class RoleService : IRoleService
+    public class RoleService : IRoleService
     {
         private readonly IRepository _repository;
         public RoleService(IRepository repository)

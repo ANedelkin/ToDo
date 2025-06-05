@@ -13,7 +13,7 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Services
 {
-    class ProjectService : IProjectService
+    public class ProjectService : IProjectService
     {
         private readonly IRepository _repository;
         public ProjectService(IRepository repository)

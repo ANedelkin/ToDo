@@ -13,7 +13,7 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Services
 {
-    class LabelService : ILabelService
+    public class LabelService : ILabelService
     {
         private readonly IRepository _repository;
         public LabelService(IRepository repository)

@@ -9,7 +9,7 @@ using ToDo.Core.Models.ViewModels;
 
 namespace ToDo.Core.Contracts
 {
-    interface ILabelService
+    public interface ILabelService
     {
         public Task<List<ListedLabel>> GetProjectLabels(string projectId);
         public Task<LabelVM?> GetLabel(string id); 

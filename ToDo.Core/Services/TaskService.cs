@@ -11,7 +11,7 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Contracts
 {
-    class TaskService : ITaskService
+    public class TaskService : ITaskService
     {
         private readonly IRepository _repository;
         public TaskService(IRepository repository)

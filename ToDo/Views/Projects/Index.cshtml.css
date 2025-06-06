@@ -46,7 +46,7 @@
 
 .sidebar-wrapper {
     width: 250px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left:0;
     height:100%;
@@ -75,11 +75,16 @@
 .container {
     flex: 1;
     max-width: 800px;
-    padding: 0 1rem;
+}
+
+.create-project-btn{
+    display:block;
+    margin-bottom:1.2em;
+    font-size:1.2rem;
 }
 
 .greeting {
-    font-size: 1.8rem;
+    font-size: 2rem;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -113,6 +118,13 @@ a.project-link {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
 .project-title {
     font-weight: bold;
     font-size: 1.2rem;

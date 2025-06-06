@@ -23,7 +23,8 @@ namespace ToDo.Core.Services
 
         public async Task<List<ListedProject>> GetUserProjects(string userId)
         {
-            return (await _repository.GetByIdAsync<User>(userId)).CreatedProjects.Select(p => new ListedProject(p)).ToList();
+            User user = await _repository.AllAsync<User>().Include(u => u.CreatedProjects).FirstAsync(u => u.Id == userId);
+            return user.CreatedProjects.Select(p => new ListedProject(p)).ToList();
         }
         public async Task<ProjectVM> GetProjectTasks(string projectId)
         {
@@ -38,7 +39,9 @@ namespace ToDo.Core.Services
         public async System.Threading.Tasks.Task CreateProject(string ownerId, ProjectDetailsVM projectDetails)
         {
             Project project = new Project(projectDetails.Title, projectDetails.Description, ownerId);
-            await _repository.AddAsync<Project>(project);
+            project.Id = Guid.NewGuid().ToString();
+            (await _repository.GetByIdAsync<User>(ownerId)).CreatedProjects.Add(project);
+            //await _repository.AddAsync<Project>(project);
             await _repository.SaveChangesAsync();
         }
         public async System.Threading.Tasks.Task EditProject(string Id, ProjectDetailsVM projectDetails)

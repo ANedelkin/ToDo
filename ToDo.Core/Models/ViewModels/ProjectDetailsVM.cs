@@ -21,9 +21,9 @@ namespace ToDo.Core.Models.ViewModels
         [MaxLength(ProjectConstants.descriptionMaxLength)]
         public string Description { get; set; }
         [Required]
-        public List<ListedUser> Participants { get; set; }
-        public ProjectDetailsVM(Project project) : this(project.Title, project.Description, project.Participants.Select(p => new ListedUser(p)).ToList()) { }
-        public ProjectDetailsVM(string title, string description, List<ListedUser> participants)
+        public List<string> Participants { get; set; }
+        public ProjectDetailsVM(Project project) : this(project.Title, project.Description, project.Participants.Select(p => p.Id).ToList()) { }
+        public ProjectDetailsVM(string title, string description, List<string> participants)
         {
             Title = title;
             Description = description;

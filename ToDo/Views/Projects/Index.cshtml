@@ -19,28 +19,30 @@
         <hr class="divider">
     </div>
     <div class="offset"></div>
-    <div class="projects-list">
-        <div class="greeting">What will you work on today, <strong>@Model.UserName</strong>?</div>
-        <div class="container">
-            <a href="@Url.Action(projectsTab ? "Join" : "Create", "Projects")" class="create-project-btn">
-                + @(projectsTab ? "Join" : "Create New") Project
-            </a>
-            @foreach (var project in Model.Projects)
-            {
-                <a href="@Url.Action("Details", "Projects", new { id = project.id })" class="project-link">
-                    <div class="project">
-                        <div class="project-header">
-                            <div class="project-title">@project.title</div>
-                            <button href="@Url.Action(projectsTab ? "Leave" : "Delete", "Projects", new { id = project.id })" class="leave-btn">
-                                @(projectsTab ? "Leave" : "Delete")
-                            </button>
-                        </div>
-                        <div class="project-description">
-                            @project.description
-                        </div>
-                    </div>
+    <div class="main-part">
+        <div class="projects-list">
+            <div class="greeting">What will you work on today, <strong>@Model.UserName</strong>?</div>
+            <div class="container">
+                <a href="@Url.Action(projectsTab ? "Join" : "Create", "Projects")" class="create-project-btn">
+                    + @(projectsTab ? "Join" : "Create New") Project
                 </a>
-            }
+                @foreach (var project in Model.Projects)
+                {
+                    <a href="@Url.Action("Details", "Projects", new { id = project.id })" class="project-link">
+                        <div class="project">
+                            <div class="project-header">
+                                <div class="project-title">@project.title</div>
+                                <button href="@Url.Action(projectsTab ? "Leave" : "Delete", "Projects", new { id = project.id })" class="leave-btn">
+                                    @(projectsTab ? "Leave" : "Delete")
+                                </button>
+                            </div>
+                            <div class="project-description">
+                                @project.description
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
         </div>
     </div>
 </div>

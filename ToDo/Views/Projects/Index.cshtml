@@ -1,8 +1,10 @@
 ﻿@using ToDo.Core.Models.ViewModels
+@using ToDo.Constants.Enums;
 @model ProjectsVM
 
 @{
     ViewData["Title"] = "Projects";
+    bool projectsTab = Model.ProjectsTab == ProjectsTab.Participated;
 }
 
 <div class="client-area">
@@ -10,25 +12,28 @@
         <div class="sidebar">
             <h3 class="logo">Projects</h3>
             <nav>
-                <a href="#participated">Participated Projects</a>
-                <a href="#created" class="active">Created Projects</a>
+                <a class="@(projectsTab ? "active " : "")sideMenuTab" href="@Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Participated })">Participated Projects</a>
+                <a class="@(!projectsTab ? "active " : "")sideMenuTab" href="@Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Created })">Created Projects</a>
             </nav>
         </div>
         <hr class="divider">
     </div>
     <div class="offset"></div>
-    <div class="project-list">
-    
+    <div class="projects-list">
         <div class="greeting">What will you work on today, <strong>@Model.UserName</strong>?</div>
         <div class="container">
-            <a href="/projects/create" class="create-project-btn">+ Create New Project</a>
+            <a href="@Url.Action(projectsTab ? "Join" : "Create", "Projects")" class="create-project-btn">
+                + @(projectsTab ? "Join" : "Create New") Project
+            </a>
             @foreach (var project in Model.Projects)
             {
-                <a href="projects/@project.id" class="project-link">
+                <a href="@Url.Action("Details", "Projects", new { id = project.id })" class="project-link">
                     <div class="project">
                         <div class="project-header">
                             <div class="project-title">@project.title</div>
-                            <button class="leave-btn" id="@project.id">Leave</button>
+                            <button href="@Url.Action(projectsTab ? "Leave" : "Delete", "Projects", new { id = project.id })" class="leave-btn">
+                                @(projectsTab ? "Leave" : "Delete")
+                            </button>
                         </div>
                         <div class="project-description">
                             @project.description
@@ -39,12 +44,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelectorAll('.leave-btn').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.stopPropagation();
-            event.preventDefault();
-        });
-    });
-</script>

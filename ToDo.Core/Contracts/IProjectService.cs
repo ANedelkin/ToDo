@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Core.Models;
@@ -11,7 +12,8 @@ namespace ToDo.Core.Contracts
 {
     public interface IProjectService
     {
-        public Task<List<ListedProject>> GetUserProjects(string userId);
+        public Task<List<ListedProject>> GetCreatedProjects(string userId);
+        public Task<List<ListedProject>> GetParticipatedProjects(string userId);
         public Task<ProjectVM> GetProjectTasks(string projectId);
         public Task<ProjectDetailsVM> GetProjectDetails(string id);
         public Task CreateProject(string ownerId, ProjectDetailsVM projectDetails);

@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ToDo.Core.Contracts;
+using ToDo.Core.Models;
 using ToDo.Core.Models.ViewModels;
+using ToDo.Constants.Enums;
 
 namespace ToDo.Controllers
 {
@@ -15,10 +17,20 @@ namespace ToDo.Controllers
         }
 
         [Authorize]
-        [HttpGet("/")]
-        public async Task<IActionResult> Index()
+        [HttpGet("/{projectsToGet?}")]
+        public async Task<IActionResult> Index(ProjectsTab? projectsToGet)
         {
-            return View(new ProjectsVM(User.Identity.Name, await _projectService.GetUserProjects(User.FindFirstValue(ClaimTypes.NameIdentifier))));
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return View(new ProjectsVM(User.Identity.Name, projectsToGet??ProjectsTab.Participated, await (projectsToGet == ProjectsTab.Created ? 
+                                                                  _projectService.GetCreatedProjects(userId) : 
+                                                                  _projectService.GetParticipatedProjects(userId))));
+        }
+        [Authorize]
+        [HttpGet("projects/create")]
+        public async Task<IActionResult> Create()
+        {
+            await _projectService.CreateProject(User.FindFirstValue(ClaimTypes.NameIdentifier), new ProjectDetailsVM("Project 1", "A projecty project", new List<string>()));
+            return View("Index", new ProjectsVM(User.Identity.Name, ProjectsTab.Created, await _projectService.GetCreatedProjects(User.FindFirstValue(ClaimTypes.NameIdentifier))));
         }
     }
 }

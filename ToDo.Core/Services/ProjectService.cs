@@ -21,10 +21,15 @@ namespace ToDo.Core.Services
             _repository = repository;
         }
 
-        public async Task<List<ListedProject>> GetUserProjects(string userId)
+        public async Task<List<ListedProject>> GetCreatedProjects(string userId)
         {
             User user = await _repository.AllAsync<User>().Include(u => u.CreatedProjects).FirstAsync(u => u.Id == userId);
             return user.CreatedProjects.Select(p => new ListedProject(p)).ToList();
+        }
+        public async Task<List<ListedProject>> GetParticipatedProjects(string userId)
+        {
+            User user = await _repository.AllAsync<User>().Include(u => u.ParticipatedProjects).FirstAsync(u => u.Id == userId);
+            return user.ParticipatedProjects.Select(p => new ListedProject(p)).ToList();
         }
         public async Task<ProjectVM> GetProjectTasks(string projectId)
         {
@@ -59,6 +64,5 @@ namespace ToDo.Core.Services
             await _repository.DeleteByIdAsync<Project>(Id);
             await _repository.SaveChangesAsync();
         }
-
     }
 }

@@ -32,9 +32,9 @@
                         <div class="project">
                             <div class="project-header">
                                 <div class="project-title">@project.title</div>
-                                <button href="@Url.Action(projectsTab ? "Leave" : "Delete", "Projects", new { id = project.id })" class="leave-btn">
+                                <a href="@Url.Action(projectsTab ? "leave" : "delete", "projects", new { id = project.id })" class="leave-btn">
                                     @(projectsTab ? "Leave" : "Delete")
-                                </button>
+                                </a>
                             </div>
                             <div class="project-description">
                                 @project.description

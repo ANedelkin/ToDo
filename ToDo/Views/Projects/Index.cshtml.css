@@ -139,6 +139,7 @@ a.project-link {
 }
 
 .leave-btn {
+    text-decoration:none;
     background: #e74c3c;
     color: white;
     border: none;

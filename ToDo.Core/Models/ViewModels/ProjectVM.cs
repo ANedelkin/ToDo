@@ -8,9 +8,11 @@ namespace ToDo.Core.Models.ViewModels
 {
     public class ProjectVM
     {
+        public string Id { get; }
         public TasksVM TasksVM { get; }
-        public ProjectVM(TasksVM tasksVM)
+        public ProjectVM(string id, TasksVM tasksVM)
         {
+            Id = id;
             TasksVM = tasksVM;
         }
     }

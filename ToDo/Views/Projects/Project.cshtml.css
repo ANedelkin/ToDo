@@ -1,0 +1,194 @@
+﻿.offset {
+    margin-left: 250px;
+}
+
+.sidebar {
+    padding-top: 8em;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 250px;
+}
+
+    .sidebar .logo {
+        padding-left: 2rem;
+    }
+
+    .sidebar nav a {
+        width: auto;
+        text-decoration: none;
+        display: block;
+        padding-left: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #333;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+        .sidebar nav a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            text-decoration: none;
+            color: #000;
+        }
+
+        .sidebar nav a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            .sidebar nav a.active:hover {
+                background-color: #0056b3;
+            }
+
+.divider {
+    border-left: 1.5px solid rgba(10, 10,10);
+    margin: 0;
+}
+
+.sidebar-wrapper {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.client-area {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    width: auto;
+    overflow: hidden;
+    padding: 2em;
+    background: #f4f4f9;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.greeting {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+
+.tasks-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.column {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+    .column h2 {
+        margin-bottom: 1rem;
+        border-bottom: 2px solid;
+        padding-bottom: 0.5rem;
+    }
+
+    .column.pending h2 {
+        color: #ff7f50;
+        border-color: #ff7f50;
+    }
+
+    .column.inprogress h2 {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+    .column.done h2 {
+        color: #28a745;
+        border-color: #28a745;
+    }
+
+a.task-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+    a.task-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+.task {
+    background: #f9f9fb;
+    border-radius: 6px;
+    overflow: hidden;
+    user-select: none;
+}
+
+    .task:active {
+        cursor: grabbing;
+    }
+
+    .task.dragging {
+        opacity: 0.5;
+    }
+
+.task-header {
+    padding: 0.7rem 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+.pending .task-header {
+    background: #ffe3d5;
+}
+.pending .create-task-btn {
+    color: #ff7f50;
+}
+
+.inprogress .task-header {
+    background: #dbe9ff;
+}
+.inprogress .create-task-btn {
+    color: #007bff;
+}
+
+.done .task-header {
+    background: #d6f5df;
+}
+.done .create-task-btn {
+    color: #28a745;
+}
+
+.column.drag-over {
+    background-color: #eef1f7;
+    transition: background-color 0.3s ease;
+}
+
+.create-task-btn{
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}

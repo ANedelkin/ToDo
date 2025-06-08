@@ -1,0 +1,84 @@
+﻿@using ToDo.Core.Models.ViewModels
+@using ToDo.Constants.Enums;
+@model ProjectVM
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+@section Scripts {
+    <script src="~/js/project.js"></script>
+}
+
+<div class="client-area">
+    <div class="sidebar-wrapper">
+        <div class="sidebar">
+            <h3 class="logo">Projects</h3>
+            <nav>
+                <a class="active sideMenuTab" href="@Url.Action("Project", "Projects", new { id = Model.Id})">Tasks</a>
+                <a class="sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
+                <a class="sideMenuTab" href="@Url.Action("Participants", "Projects", new { id = Model.Id })">Participants</a>
+            </nav>
+        </div>
+        <hr class="divider">
+    </div>
+    <div class="offset"></div>
+    <div class="container">
+        <div class="tasks-columns">
+
+            <!-- Pending -->
+            <div class="column pending" data-status="pending">
+                <h2>Pending</h2>
+                <a class="create-task-btn" data-status="pending">+ Create Task</a>
+
+                <a href="task-wireframes.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Design Wireframes</div>
+                    </div>
+                </a>
+                <a href="task-requirements.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Gather Requirements</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- In Progress -->
+            <div class="column inprogress" data-status="inprogress">
+                <h2>In Progress</h2>
+                <a class="create-task-btn" data-status="inprogress">+ Create Task</a>
+
+                <a href="task-api.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Develop API</div>
+                    </div>
+                </a>
+                <a href="task-unit-tests.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Write Unit Tests</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Done -->
+            <div class="column done" data-status="done">
+                <h2>Done</h2>
+                <a class="create-task-btn" data-status="done">+ Create Task</a>
+
+                <a href="task-database.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Set up Database</div>
+                    </div>
+                </a>
+                <a href="task-staging.html" class="task-link" draggable="false">
+                    <div class="task" draggable="true">
+                        <div class="task-header">Deploy to Staging</div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

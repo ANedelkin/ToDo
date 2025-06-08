@@ -34,7 +34,7 @@ namespace ToDo.Core.Services
         public async Task<ProjectVM> GetProjectTasks(string projectId)
         {
             Project project = await _repository.GetByIdAsync<Project>(projectId);
-            return new ProjectVM(new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList()));
+            return new ProjectVM(projectId, new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList()));
         }
         public async Task<ProjectDetailsVM> GetProjectDetails(string id)
         {

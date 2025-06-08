@@ -27,20 +27,14 @@ namespace ToDo.Controllers
                                                                   _projectService.GetParticipatedProjects(userId))));
         }
         [Authorize]
-        [HttpGet("/{id}")]
-        public async Task<IActionResult> Project(string id)
-        {
-            return View(await _projectService.GetProjectTasks(id));
-        }
-        [Authorize]
-        [HttpGet("/create")]
+        [HttpGet("/projects/create")]
         public async Task<IActionResult> Create()
         {
             await _projectService.CreateProject(User.FindFirstValue(ClaimTypes.NameIdentifier), new ProjectDetailsVM("Project 1", "A projecty project", new List<string>()));
             return View("Index", new ProjectsVM(User.Identity.Name, ProjectsTab.Created, await _projectService.GetCreatedProjects(User.FindFirstValue(ClaimTypes.NameIdentifier))));
         }
         [Authorize]
-        [HttpGet("/delete{id}")]
+        [HttpGet("/projects/delete{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             await _projectService.RemoveProject(id);

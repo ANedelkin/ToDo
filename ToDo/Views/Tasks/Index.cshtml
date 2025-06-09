@@ -3,7 +3,7 @@
 @model ProjectVM
 
 @{
-    ViewData["Title"] = "Projects";
+    ViewData["Title"] = "Tasks";
 }
 
 @section Scripts {
@@ -15,11 +15,11 @@
         <div class="sidebar">
             <h3 class="logo">Projects</h3>
             <nav>
-                <a class="active sideMenuTab" href="@Url.Action("Project", "Projects", new { id = Model.Id})">Tasks</a>
+                <a class="active sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
                 <a class="sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
                 <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
                 <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
-                <a class="sideMenuTab" href="@Url.Action("Participants", "Projects", new { id = Model.Id })">Participants</a>
+                @* <a class="sideMenuTab" href="@Url.Action("Participants", "Projects", new { id = Model.Id })">Participants</a> *@
             </nav>
         </div>
         <hr class="divider">

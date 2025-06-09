@@ -1,0 +1,130 @@
+﻿@using ToDo.Core.Contracts
+@using ToDo.Core.Models.ViewModels
+@using ToDo.Constants.Enums
+@using ToDo.Core.Services
+@model ProjectDetailsVM
+@inject IUserService UserService
+
+@{
+    ViewData["Title"] = "Edit Project";
+    var allUsers = await UserService.GetAllUsers();
+}
+
+<div class="client-area">
+    <div class="sidebar-wrapper">
+        <div class="sidebar">
+            <h3 class="logo">Projects</h3>
+            <nav>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
+                <a class="active sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
+            </nav>
+        </div>
+        <hr class="divider">
+    </div>
+
+    <div class="offset"></div>
+
+    <div class="container">
+        <div class="greeting">Edit Project: <strong>@Model.Title</strong></div>
+
+        <div class="project-details-card">
+            <form asp-action="Update" asp-controller="Projects" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+                <div class="detail-section">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="detail-section">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="detail-section">
+                    <label asp-for="Participants">Participants</label>
+                    <div>
+                        @if (Model.Participants == null || !Model.Participants.Any())
+                        {
+                            <span>None</span>
+                        }
+                        else
+                        {
+                            foreach (var user in Model.Participants)
+                            {
+                                <div class="participant-item">
+                                    @user.userName
+                                    <button type="button" class="btn btn-danger btn-sm" data-user-id="@user.id" onclick="removeParticipant(this)">Remove</button>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <span asp-validation-for="Participants" class="text-danger"></span>
+                </div>
+
+                <div class="add-participant">
+                    <label for="newUserName">Add Participant</label>
+                    <input type="text" id="newUserName" class="form-control" />
+                    <button type="button" class="btn btn-success" onclick="addParticipant()">Add</button>
+                </div>
+                <span id="userNotFound" class="text-danger" style="display:none;">User not found.</span>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="@Url.Action("Index", "Projects")" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function removeParticipant(button) {
+            const userId = button.getAttribute('data-user-id');
+            // Send AJAX request to remove participant
+            fetch(`/Projects/RemoveParticipant?projectId=@Model.Id&userId=${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    button.closest('.participant-item').remove();
+                }
+            });
+        }
+
+        function addParticipant() {
+            const userName = document.getElementById('newUserName').value;
+            const userNotFound = document.getElementById('userNotFound');
+
+            fetch(`/Projects/AddParticipant?projectId=@Model.Id&userName=${userName}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const participantList = document.querySelector('.detail-section div');
+                    const newParticipant = document.createElement('div');
+                    newParticipant.classList.add('participant-item');
+                    newParticipant.innerHTML = `${data.userName} <button type="button" class="btn btn-danger btn-sm" data-user-id="${data.userId}" onclick="removeParticipant(this)">Remove</button>`;
+                    participantList.appendChild(newParticipant);
+                    document.getElementById('newUserName').value = '';
+                    userNotFound.style.display = 'none';
+                } else {
+                    userNotFound.style.display = 'inline';
+                }
+            });
+        }
+    </script>
+}

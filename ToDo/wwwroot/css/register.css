@@ -28,68 +28,9 @@ hr{
     margin-bottom:2em;
 }
 
-.form-floating {
-    position: relative;
-}
-
-    .form-floating input {
-        width: 100%;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        font-size: 1rem;
-    }
-
-    .form-floating label {
-        position: absolute;
-        top: 50%;
-        left: 1rem;
-        font-size: 1rem;
-        transform: translateY(-50%);
-        color: #6c757d;
-        transition: 0.3s;
-    }
-
-    .form-floating input:focus + label,
-    .form-floating input:not(:placeholder-shown) + label {
-        top: -0.5rem;
-        font-size: 0.85rem;
-        color: #007bff;
-    }
-
 .button-container{
     margin-top:2em;
 }
-button {
-    padding: 0.8rem 2rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    float:right;
-}
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-.text-danger {
-    font-size: 0.875rem;
-    color: #e74c3c;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-    a:hover {
-        text-decoration: underline;
-    }
 
 .container {
     padding: 0;

@@ -41,9 +41,9 @@ namespace ToDo.Core.Services
             Project project = await _repository.GetByIdAsync<Project>(id);
             return new ProjectDetailsVM(project);
         }
-        public async System.Threading.Tasks.Task CreateProject(string ownerId, ProjectDetailsVM projectDetails)
+        public async System.Threading.Tasks.Task CreateProject(string ownerId)
         {
-            Project project = new Project(projectDetails.Title, projectDetails.Description, ownerId);
+            Project project = new Project("", "", ownerId);
             project.Id = Guid.NewGuid().ToString();
             (await _repository.GetByIdAsync<User>(ownerId)).CreatedProjects.Add(project);
             //await _repository.AddAsync<Project>(project);

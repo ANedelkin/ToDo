@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\project.js" />
     <None Include="wwwroot\css\register.css" />
+    <None Include="wwwroot\js\project.js" />
   </ItemGroup>
 
   <ItemGroup>

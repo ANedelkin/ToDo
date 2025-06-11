@@ -30,7 +30,7 @@ namespace ToDo.Controllers
         [HttpGet("/projects/create")]
         public async Task<IActionResult> Create()
         {
-            await _projectService.CreateProject(User.FindFirstValue(ClaimTypes.NameIdentifier), new ProjectDetailsVM("Project 1", "A projecty project", new List<string>()));
+            await _projectService.CreateProject(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return View("Index", new ProjectsVM(User.Identity.Name, ProjectsTab.Created, await _projectService.GetCreatedProjects(User.FindFirstValue(ClaimTypes.NameIdentifier))));
         }
         [Authorize]
@@ -39,6 +39,12 @@ namespace ToDo.Controllers
         {
             await _projectService.RemoveProject(id);
             return View("Index", new ProjectsVM(User.Identity.Name, ProjectsTab.Created, await _projectService.GetCreatedProjects(User.FindFirstValue(ClaimTypes.NameIdentifier))));
+        }
+        [Authorize]
+        [HttpGet("project-details/{id}")]
+        public async Task<IActionResult> Details(string id)
+        {
+            return View(await _projectService.GetProjectDetails(id));
         }
     }
 }

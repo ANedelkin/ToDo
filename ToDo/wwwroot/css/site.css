@@ -141,7 +141,12 @@ button {
     padding: 0.5rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+    float: right;
 }
+    .leave-btn:hover {
+        background-color: #B73B2F;
+    }
 
 .form-floating {
     position: relative;

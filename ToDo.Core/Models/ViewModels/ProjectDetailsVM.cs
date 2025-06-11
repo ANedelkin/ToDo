@@ -13,6 +13,8 @@ namespace ToDo.Core.Models.ViewModels
     public class ProjectDetailsVM
     {
         [Required]
+        public string Id { get; set; }
+        [Required]
         [MinLength(ProjectConstants.titleMinLength)]
         [MaxLength(ProjectConstants.titleMaxLength)]
         public string Title { get; set; }
@@ -21,10 +23,11 @@ namespace ToDo.Core.Models.ViewModels
         [MaxLength(ProjectConstants.descriptionMaxLength)]
         public string Description { get; set; }
         [Required]
-        public List<string> Participants { get; set; }
-        public ProjectDetailsVM(Project project) : this(project.Title, project.Description, project.Participants.Select(p => p.Id).ToList()) { }
-        public ProjectDetailsVM(string title, string description, List<string> participants)
+        public List<ListedUser> Participants { get; set; }
+        public ProjectDetailsVM(Project project) : this(project.Id, project.Title, project.Description, project.Participants.Select(p => new ListedUser(p)).ToList()) { }
+        public ProjectDetailsVM(string id, string title, string description, List<ListedUser> participants)
         {
+            Id = id;
             Title = title;
             Description = description;
             Participants = participants;

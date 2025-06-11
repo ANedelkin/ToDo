@@ -3,12 +3,16 @@
 @using ToDo.Constants.Enums
 @using ToDo.Core.Services
 @model ProjectDetailsVM
-@inject IUserService UserService
 
 @{
     ViewData["Title"] = "Edit Project";
-    var allUsers = await UserService.GetAllUsers();
 }
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/details.js"></script>
+}
+
 
 <div class="client-area">
     <div class="sidebar-wrapper">
@@ -26,39 +30,39 @@
 
     <div class="offset"></div>
 
-    <div class="container">
-        <div class="greeting">Edit Project: <strong>@Model.Title</strong></div>
+    <div class="main-part">
+        <div class="container">
+            <h1 class="title">Edit Project</h1>
 
-        <div class="project-details-card">
             <form asp-action="Update" asp-controller="Projects" method="post">
                 <input type="hidden" name="Id" value="@Model.Id" />
 
-                <div class="detail-section">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" class="form-control" />
+                <div class="form-floating mb-3">
+                    <input asp-for="Title" class="form-control" placeholder=" "/>
+                    <label asp-for="Title">Project Title</label>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
 
-                <div class="detail-section">
-                    <label asp-for="Description"></label>
-                    <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <div class="form-floating mb-3">
+                    <textarea asp-for="Description" class="form-control" style="height: 150px;" placeholder=" "></textarea>
+                    <label asp-for="Description">Description</label>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
-                <div class="detail-section">
-                    <label asp-for="Participants">Participants</label>
-                    <div>
+                <div class="mb-3">
+                    <label class="form-label">Participants</label>
+                    <div class="participant-list">
                         @if (Model.Participants == null || !Model.Participants.Any())
                         {
-                            <span>None</span>
+                            <span id="none-text">None</span>
                         }
                         else
                         {
                             foreach (var user in Model.Participants)
                             {
                                 <div class="participant-item">
-                                    @user.userName
-                                    <button type="button" class="btn btn-danger btn-sm" data-user-id="@user.id" onclick="removeParticipant(this)">Remove</button>
+                                    <span>@user.Username</span>
+                                    <button type="button" class="leave-btn" data-user-id="@user.Id" onclick="removeParticipant(this)">Remove</button>
                                 </div>
                             }
                         }
@@ -66,65 +70,18 @@
                     <span asp-validation-for="Participants" class="text-danger"></span>
                 </div>
 
-                <div class="add-participant">
-                    <label for="newUserName">Add Participant</label>
-                    <input type="text" id="newUserName" class="form-control" />
-                    <button type="button" class="btn btn-success" onclick="addParticipant()">Add</button>
+                <div class="form-floating mb-3" style="display:flex; flex-direction:row; gap:10px">
+                    <input id="newUserName" placeholder=" " class="form-control" />
+                    <label>Participant Username</label>
+                    <button type="button" onclick="addParticipant()">Add</button>
+                    <span id="error" class="text-danger" style="display:none;"></span>
                 </div>
-                <span id="userNotFound" class="text-danger" style="display:none;">User not found.</span>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <a href="@Url.Action("Index", "Projects")" class="btn btn-secondary">Cancel</a>
+                <div class="button-container">
+                    <button type="submit">Save Changes</button>
+                    <button href="@Url.Action("Index", "Projects")">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        function removeParticipant(button) {
-            const userId = button.getAttribute('data-user-id');
-            // Send AJAX request to remove participant
-            fetch(`/Projects/RemoveParticipant?projectId=@Model.Id&userId=${userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    button.closest('.participant-item').remove();
-                }
-            });
-        }
-
-        function addParticipant() {
-            const userName = document.getElementById('newUserName').value;
-            const userNotFound = document.getElementById('userNotFound');
-
-            fetch(`/Projects/AddParticipant?projectId=@Model.Id&userName=${userName}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const participantList = document.querySelector('.detail-section div');
-                    const newParticipant = document.createElement('div');
-                    newParticipant.classList.add('participant-item');
-                    newParticipant.innerHTML = `${data.userName} <button type="button" class="btn btn-danger btn-sm" data-user-id="${data.userId}" onclick="removeParticipant(this)">Remove</button>`;
-                    participantList.appendChild(newParticipant);
-                    document.getElementById('newUserName').value = '';
-                    userNotFound.style.display = 'none';
-                } else {
-                    userNotFound.style.display = 'inline';
-                }
-            });
-        }
-    </script>
-}

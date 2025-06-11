@@ -7,15 +7,16 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models
 {
-    public struct ListedUser
+    public class ListedUser
     {
-        public readonly string id;
-        public readonly string userName;
         public ListedUser(User user) : this(user.Id, user.UserName) { }
-        public ListedUser(string id, string userName)
+        public ListedUser(string id, string username)
         {
-            this.id = id;
-            this.userName = userName;
+            Id = id;
+            Username = username;
         }
+
+        public string Id { get; set; }
+        public string Username { get; set; }
     }
 }

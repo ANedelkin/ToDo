@@ -28,6 +28,7 @@ public class Program
 
         builder.Services.AddScoped<IRepository, Repository>();
 
+        builder.Services.AddScoped<IUserService, UserService>(); //Unused service
         builder.Services.AddScoped<ILabelService, LabelService>();
         builder.Services.AddScoped<IProjectService, ProjectService>();
         builder.Services.AddScoped<IRoleService, RoleService>();

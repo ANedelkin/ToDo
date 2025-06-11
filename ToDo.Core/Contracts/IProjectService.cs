@@ -16,7 +16,7 @@ namespace ToDo.Core.Contracts
         public Task<List<ListedProject>> GetParticipatedProjects(string userId);
         public Task<ProjectVM> GetProjectTasks(string projectId);
         public Task<ProjectDetailsVM> GetProjectDetails(string id);
-        public Task CreateProject(string ownerId, ProjectDetailsVM projectDetails);
+        public Task CreateProject(string ownerId);
         public Task EditProject(string id, ProjectDetailsVM projectDetails);
         public Task RemoveProject(string id);
 

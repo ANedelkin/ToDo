@@ -6,6 +6,10 @@ using ToDo.Core.Models;
 using ToDo.Core.Models.ViewModels;
 using ToDo.Constants.Enums;
 using System.Runtime.CompilerServices;
+using ToDo.Infrastructure.Data.Models;
+using Azure.Core;
+using System.Text;
+using System.Linq;
 
 namespace ToDo.Controllers
 {
@@ -46,5 +50,20 @@ namespace ToDo.Controllers
         {
             return View(await _projectService.GetProjectDetails(id));
         }
+        [Authorize]
+        [HttpPost("/projects/update")]
+        public async Task<IActionResult> Update([FromForm] ProjectDetailsVMWithId details)
+        {
+            details.Participants = Request.Form["Participants"].ToString().Split(",", StringSplitOptions.RemoveEmptyEntries).Select(id => new ListedUser(id, "")).ToList();
+
+            if (!ModelState.IsValid)
+            {
+                return View($"project-details/{details.Id}");
+            }
+
+            await _projectService.EditProject(details);
+            return RedirectToAction("Index");
+        }
+
     }
 }

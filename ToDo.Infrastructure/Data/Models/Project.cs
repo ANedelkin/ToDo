@@ -12,6 +12,13 @@ namespace ToDo.Infrastructure.Data.Models
             Description = description;
             OwnerId = ownerId;
         }
+        public Project(string id, string title, string description, string ownerId)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            OwnerId = ownerId;
+        }
 
         [Key]
         public string Id { get; set; } = string.Empty;

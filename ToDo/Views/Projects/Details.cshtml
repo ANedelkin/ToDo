@@ -2,7 +2,7 @@
 @using ToDo.Core.Models.ViewModels
 @using ToDo.Constants.Enums
 @using ToDo.Core.Services
-@model ProjectDetailsVM
+@model ProjectDetailsVMWithId
 
 @{
     ViewData["Title"] = "Edit Project";
@@ -34,7 +34,8 @@
         <div class="container">
             <h1 class="title">Edit Project</h1>
 
-            <form asp-action="Update" asp-controller="Projects" method="post">
+            <form asp-action="Update" asp-controller="Projects" method="POST">
+                @Html.AntiForgeryToken();
                 <input type="hidden" name="Id" value="@Model.Id" />
 
                 <div class="form-floating mb-3">
@@ -52,6 +53,7 @@
                 <div class="mb-3">
                     <label class="form-label">Participants</label>
                     <div class="participant-list">
+                        <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))"/>
                         @if (Model.Participants == null || !Model.Participants.Any())
                         {
                             <span id="none-text">None</span>
@@ -60,7 +62,7 @@
                         {
                             foreach (var user in Model.Participants)
                             {
-                                <div class="participant-item">
+                                <div class="participant-item d-flex justify-content-between align-items-center p-2 mb-2 bg-light border rounded">
                                     <span>@user.Username</span>
                                     <button type="button" class="leave-btn" data-user-id="@user.Id" onclick="removeParticipant(this)">Remove</button>
                                 </div>

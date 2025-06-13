@@ -36,10 +36,10 @@ namespace ToDo.Core.Services
             Project project = await _repository.GetByIdAsync<Project>(projectId);
             return new ProjectVM(projectId, new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList()));
         }
-        public async Task<ProjectDetailsVM> GetProjectDetails(string id)
+        public async Task<ProjectDetailsVMWithId> GetProjectDetails(string id)
         {
-            Project project = await _repository.GetByIdAsync<Project>(id);
-            return new ProjectDetailsVM(project);
+            Project project = await _repository.AllAsync<Project>().Include(p => p.Participants).FirstAsync(p => p.Id == id);
+            return new ProjectDetailsVMWithId(project);
         }
         public async System.Threading.Tasks.Task CreateProject(string ownerId)
         {
@@ -49,14 +49,16 @@ namespace ToDo.Core.Services
             //await _repository.AddAsync<Project>(project);
             await _repository.SaveChangesAsync();
         }
-        public async System.Threading.Tasks.Task EditProject(string Id, ProjectDetailsVM projectDetails)
+        public async System.Threading.Tasks.Task EditProject(ProjectDetailsVMWithId projectDetails)
         {
-            Project project = new Project(
-                projectDetails.Title,
-                projectDetails.Description,
-                (await _repository.GetByIdAsync<Project>(Id)).OwnerId
-            );
-            await _repository.UpdateAsync<Project>(Id, project);
+            Project project = await _repository.AllAsync<Project>()
+                                                .Include(p => p.Participants)
+                                                .FirstAsync(p => p.Id == projectDetails.Id);
+            project.Title = projectDetails.Title;
+            project.Description = projectDetails.Description;
+            project.Participants = projectDetails.Participants.Select(async u => await _repository.GetByIdAsync<User>(u.Id))
+                                                              .Select(t => t.Result)
+                                                              .ToList();
             await _repository.SaveChangesAsync();
         }
         public async System.Threading.Tasks.Task RemoveProject(string Id)

@@ -24,7 +24,7 @@ html {
     background: #f4f4f9;
 }
 
-button {
+button, .btn {
     padding: 0.8rem 2rem;
     background-color: #007bff;
     color: white;
@@ -36,8 +36,9 @@ button {
     float: right;
 }
 
-    button:hover {
+    button:hover, .btn:hover {
         background-color: #0056b3;
+        color: white;
     }
 
 .offset {

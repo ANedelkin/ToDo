@@ -81,7 +81,7 @@
 
                 <div class="button-container">
                     <button type="submit">Save Changes</button>
-                    <button href="@Url.Action("Index", "Projects")">Cancel</button>
+                    <a class="btn" href="@Url.Action("Index", "Tasks", new {projectId = Model.Id})">Cancel</a>
                 </div>
             </form>
         </div>

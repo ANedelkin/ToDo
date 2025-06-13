@@ -35,7 +35,7 @@
             <h1 class="title">Edit Project</h1>
 
             <form asp-action="Update" asp-controller="Projects" method="POST">
-                @Html.AntiForgeryToken();
+                @Html.AntiForgeryToken()
                 <input type="hidden" name="Id" value="@Model.Id" />
 
                 <div class="form-floating mb-3">

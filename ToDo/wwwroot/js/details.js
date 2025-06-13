@@ -30,8 +30,14 @@ function addParticipant() {
                         error.style.display = 'inline';
                         return;
                     }
-                    document.querySelector('#none-text').style.display = 'none';
                     const participantList = document.querySelector('.participant-list');
+                    console.log(participantList.getAttribute('dont-add'))
+                    if (data.model.id == participantList.getAttribute('dont-add')) {
+                        error.textContent = 'Cannot add creator as a participant!';
+                        error.style.display = 'inline';
+                        return;
+                    }
+                    document.querySelector('#none-text').style.display = 'none';
                     const index = participantList.children.length;
                     const newParticipant = document.createElement('div');
                     newParticipant.classList.add('participant-item', 'd-flex', 'justify-content-between', 'align-items-center', 'p-2', 'mb-2', 'bg-light', 'border', 'rounded');

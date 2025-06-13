@@ -11,7 +11,7 @@ namespace ToDo.Infrastructure.Data.Common
         IQueryable<T> AllAsync<T>() where T : class;
         IQueryable<T> AllAsNoTrackingAsync<T>() where T : class;
         Task<bool> Exists<T>(string id) where T : class;
-        Task<T> GetByIdAsync<T>(string id) where T : class;
+        Task<T?> GetByIdAsync<T>(string id) where T : class;
         Task AddAsync<T>(T entity) where T : class;
         Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class;
         Task UpdateAsync<T>(string Id, T newEntity) where T : class;

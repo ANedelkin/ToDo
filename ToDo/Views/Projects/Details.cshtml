@@ -1,4 +1,5 @@
-﻿@using ToDo.Core.Contracts
+﻿@using System.Security.Claims
+@using ToDo.Core.Contracts
 @using ToDo.Core.Models.ViewModels
 @using ToDo.Constants.Enums
 @using ToDo.Core.Services
@@ -52,7 +53,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Participants</label>
-                    <div class="participant-list">
+                    <div class="participant-list" dont-add="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
                         <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))"/>
                         @if (Model.Participants == null || !Model.Participants.Any())
                         {

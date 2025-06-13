@@ -54,7 +54,7 @@ namespace ToDo.Controllers
         [HttpPost("/projects/update")]
         public async Task<IActionResult> Update([FromForm] ProjectDetailsVMWithId details)
         {
-            details.Participants = Request.Form["Participants"].ToString().Split(",", StringSplitOptions.RemoveEmptyEntries).Select(id => new ListedUser(id, "")).ToList();
+            details.Participants = Request.Form["Participants"].ToString().Split(",", StringSplitOptions.RemoveEmptyEntries).Where(id => id != User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(id => new ListedUser(id, "")).ToList();
 
             if (!ModelState.IsValid)
             {

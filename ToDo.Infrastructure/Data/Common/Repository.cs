@@ -32,9 +32,9 @@ namespace ToDo.Infrastructure.Data.Common
             return await DbSet<T>().FindAsync(id) == null ? true : false;
         }
 
-        public async Task<T> GetByIdAsync<T>(string id) where T : class
+        public async Task<T?> GetByIdAsync<T>(string id) where T : class
         {
-            return await DbSet<T>().FindAsync(id) ?? throw new KeyNotFoundException();
+            return await DbSet<T>().FindAsync(id);
         }
         public async Task AddAsync<T>(T entity) where T : class
         {

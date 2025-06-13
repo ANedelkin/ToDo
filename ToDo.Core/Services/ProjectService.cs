@@ -51,14 +51,16 @@ namespace ToDo.Core.Services
         }
         public async System.Threading.Tasks.Task EditProject(ProjectDetailsVMWithId projectDetails)
         {
+            var users = projectDetails.Participants.Select(async u => await _repository.GetByIdAsync<User>(u.Id))
+                                                   .Select(t => t.Result);
             Project project = await _repository.AllAsync<Project>()
                                                 .Include(p => p.Participants)
                                                 .FirstAsync(p => p.Id == projectDetails.Id);
             project.Title = projectDetails.Title;
             project.Description = projectDetails.Description;
-            project.Participants = projectDetails.Participants.Select(async u => await _repository.GetByIdAsync<User>(u.Id))
-                                                              .Select(t => t.Result)
-                                                              .ToList();
+            project.Participants = users.Where(u => u != null)
+                                        .Select(u => u!)
+                                        .ToList();
             await _repository.SaveChangesAsync();
         }
         public async System.Threading.Tasks.Task RemoveProject(string Id)

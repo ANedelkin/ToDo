@@ -7,7 +7,7 @@
 }
 
 @section Scripts {
-    <script src="~/js/project.js"></script>
+<script src="~/js/project.js"></script>
 }
 
 <div class="client-area">
@@ -19,7 +19,6 @@
                 <a class="sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
                 <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
                 <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
-                @* <a class="sideMenuTab" href="@Url.Action("Participants", "Projects", new { id = Model.Id })">Participants</a> *@
             </nav>
         </div>
         <hr class="divider">
@@ -31,7 +30,10 @@
             <!-- Pending -->
             <div class="column pending" data-status="pending">
                 <h2>Pending</h2>
-                <a class="create-task-btn" data-status="pending">+ Create Task</a>
+                @if (Model.IsCreator)
+                {
+                    <a class="create-task-btn" data-status="pending">+ Create Task</a>
+                }
 
                 <a href="task-wireframes.html" class="task-link" draggable="false">
                     <div class="task" draggable="true">
@@ -48,7 +50,10 @@
             <!-- In Progress -->
             <div class="column inprogress" data-status="inprogress">
                 <h2>In Progress</h2>
-                <a class="create-task-btn" data-status="inprogress">+ Create Task</a>
+                @if (Model.IsCreator)
+                {
+                    <a class="create-task-btn" data-status="inprogress">+ Create Task</a>
+                }
 
                 <a href="task-api.html" class="task-link" draggable="false">
                     <div class="task" draggable="true">
@@ -65,7 +70,10 @@
             <!-- Done -->
             <div class="column done" data-status="done">
                 <h2>Done</h2>
-                <a class="create-task-btn" data-status="done">+ Create Task</a>
+                @if (Model.IsCreator)
+                {
+                    <a class="create-task-btn" data-status="done">+ Create Task</a>
+                }
 
                 <a href="task-database.html" class="task-link" draggable="false">
                     <div class="task" draggable="true">

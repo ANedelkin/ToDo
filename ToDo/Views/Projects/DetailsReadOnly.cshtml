@@ -1,0 +1,58 @@
+﻿@using System.Security.Claims
+@using ToDo.Core.Contracts
+@using ToDo.Core.Models.ViewModels
+@using ToDo.Constants.Enums
+@using ToDo.Core.Services
+@model ProjectDetailsVMWithId
+
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<div class="client-area">
+    <div class="sidebar-wrapper">
+        <div class="sidebar">
+            <h3 class="logo">Projects</h3>
+            <nav>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
+                <a class="active sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
+                <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
+            </nav>
+        </div>
+        <hr class="divider">
+    </div>
+
+    <div class="offset"></div>
+
+    <div class="main-part">
+        <div class="container">
+            <h1 class="title">Project Details</h1>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Project Title</label>
+                <p class="form-control-plaintext">@Model.Title</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Description</label>
+                <p class="form-control-plaintext" style="white-space: pre-wrap;">@Model.Description</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Participants</label>
+                @if (Model.Participants == null || !Model.Participants.Any())
+                {
+                    <p class="form-control-plaintext">None</p>
+                }
+                else
+                {
+                    @foreach (var user in Model.Participants)
+                    {
+                        <div class="participant-item d-flex justify-content-between align-items-center p-2 mb-2 bg-light border rounded"><span>@user.Username</span></div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,8 +10,8 @@
 }
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/details.js"></script>
+<partial name="_ValidationScriptsPartial" />
+<script src="~/js/details.js"></script>
 }
 
 
@@ -34,13 +34,12 @@
     <div class="main-part">
         <div class="container">
             <h1 class="title">Edit Project</h1>
-
             <form asp-action="Update" asp-controller="Projects" method="POST">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="Id" value="@Model.Id" />
 
                 <div class="form-floating mb-3">
-                    <input asp-for="Title" class="form-control" placeholder=" "/>
+                    <input asp-for="Title" class="form-control" placeholder=" " />
                     <label asp-for="Title">Project Title</label>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
@@ -54,12 +53,9 @@
                 <div class="mb-3">
                     <label class="form-label">Participants</label>
                     <div class="participant-list" dont-add="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
-                        <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))"/>
-                        @if (Model.Participants == null || !Model.Participants.Any())
-                        {
-                            <span id="none-text">None</span>
-                        }
-                        else
+                        <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))" />
+                        <span id="none-text" style="@(Model.Participants == null || !Model.Participants.Any() ? "None" : "Block")">None</span>
+                        @if (Model.Participants != null && Model.Participants.Any())
                         {
                             foreach (var user in Model.Participants)
                             {

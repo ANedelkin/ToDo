@@ -12,6 +12,7 @@ namespace ToDo.Core.Models.ViewModels
     {
         [Required]
         public string Id { get; set; }
+        public bool IsCreator { get; set; }
         public ProjectDetailsVMWithId() { }
         public ProjectDetailsVMWithId(Project project) : this(project.Id, project.Title, project.Description, project.Participants.Select(p => new ListedUser(p)).ToList()) { }
         public ProjectDetailsVMWithId(string id, string title, string description, List<ListedUser> participants) : base(title, description, participants)

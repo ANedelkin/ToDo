@@ -23,9 +23,12 @@
         <div class="projects-list">
             <div class="greeting">What will you work on today, <strong>@Model.UserName</strong>?</div>
             <div class="container">
-                <a href="@Url.Action(projectsTab ? "Join" : "Create", "Projects")" class="create-project-btn">
-                    + @(projectsTab ? "Join" : "Create New") Project
-                </a>
+                @if (!projectsTab)
+                {
+                    <a href="@Url.Action("Create", "Projects")" class="create-project-btn">
+                        + Create New Project
+                    </a>
+                }
                 @foreach (var project in Model.Projects)
                 {
                     <a href="@Url.Action("Index", "Tasks", new { projectId = project.id })" class="project-link">

@@ -49,6 +49,10 @@ a.project-link {
 .project-title {
     font-weight: bold;
     font-size: 1.2rem;
+    max-width:550px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .project-description {

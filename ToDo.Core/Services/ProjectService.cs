@@ -31,22 +31,21 @@ namespace ToDo.Core.Services
             User user = await _repository.AllAsync<User>().Include(u => u.ParticipatedProjects).FirstAsync(u => u.Id == userId);
             return user.ParticipatedProjects.Select(p => new ListedProject(p)).ToList();
         }
-        public async Task<ProjectVM> GetProjectTasks(string projectId)
+        public async Task<ProjectVM> GetProjectTasks(string projectId, string callerId)
         {
             Project project = await _repository.GetByIdAsync<Project>(projectId);
-            return new ProjectVM(projectId, new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList()));
+            return new ProjectVM(projectId, new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList())) { IsCreator = project.OwnerId == callerId };
         }
-        public async Task<ProjectDetailsVMWithId> GetProjectDetails(string id)
+        public async Task<ProjectDetailsVMWithId> GetProjectDetails(string id, string callerId)
         {
             Project project = await _repository.AllAsync<Project>().Include(p => p.Participants).FirstAsync(p => p.Id == id);
-            return new ProjectDetailsVMWithId(project);
+            return new ProjectDetailsVMWithId(project) { IsCreator = project.OwnerId == callerId };
         }
         public async System.Threading.Tasks.Task CreateProject(string ownerId)
         {
             Project project = new Project("", "", ownerId);
             project.Id = Guid.NewGuid().ToString();
             (await _repository.GetByIdAsync<User>(ownerId)).CreatedProjects.Add(project);
-            //await _repository.AddAsync<Project>(project);
             await _repository.SaveChangesAsync();
         }
         public async System.Threading.Tasks.Task EditProject(ProjectDetailsVMWithId projectDetails)

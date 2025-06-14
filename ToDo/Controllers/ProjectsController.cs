@@ -48,7 +48,9 @@ namespace ToDo.Controllers
         [HttpGet("project-details/{id}")]
         public async Task<IActionResult> Details(string id)
         {
-            return View(await _projectService.GetProjectDetails(id));
+            ProjectDetailsVMWithId projectDetails = await _projectService.GetProjectDetails(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if(projectDetails.IsCreator) return View(projectDetails);
+            return View("DetailsReadOnly", projectDetails);
         }
         [Authorize]
         [HttpPost("/projects/update")]
@@ -62,7 +64,7 @@ namespace ToDo.Controllers
             }
 
             await _projectService.EditProject(details);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Tasks", new { projectId=details.Id});
         }
 
     }

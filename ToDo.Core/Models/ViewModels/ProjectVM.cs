@@ -10,6 +10,7 @@ namespace ToDo.Core.Models.ViewModels
     {
         public string Id { get; }
         public TasksVM TasksVM { get; }
+        public bool IsCreator { get; set; }
         public ProjectVM(string id, TasksVM tasksVM)
         {
             Id = id;

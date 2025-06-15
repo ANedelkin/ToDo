@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,16 +9,17 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models.ViewModels
 {
-    public class ProjectDetailsVM
+    public class ProjectDetailsVM 
     {
+        public string? Id { get; set; } = string.Empty;
+        public bool IsCreator { get; set; }
         [MinLength(ProjectConstants.titleMinLength)]
         [MaxLength(ProjectConstants.titleMaxLength)]
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         [Required]
         [MinLength(ProjectConstants.descriptionMinLength)]
         [MaxLength(ProjectConstants.descriptionMaxLength)]
-        public string Description { get; set; }
-        [Required]
+        public string Description { get; set; } = string.Empty;
         public List<ListedUser> Participants { get; set; }
         public ProjectDetailsVM() { }
         public ProjectDetailsVM(Project project) : this(project.Title, project.Description, project.Participants.Select(p => new ListedUser(p)).ToList()) { }

@@ -3,7 +3,7 @@
 @using ToDo.Core.Models.ViewModels
 @using ToDo.Constants.Enums
 @using ToDo.Core.Services
-@model ProjectDetailsVMWithId
+@model ProjectDetailsVM
 
 @{
     ViewData["Title"] = "Edit Project";
@@ -16,25 +16,28 @@
 
 
 <div class="client-area">
-    <div class="sidebar-wrapper">
-        <div class="sidebar">
-            <h3 class="logo">Projects</h3>
-            <nav>
-                <a class="sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
-                <a class="active sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
-                <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
-                <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
-            </nav>
+    @if (Model.Id != string.Empty)
+    {
+        <div class="sidebar-wrapper">
+            <div class="sidebar">
+                <h3 class="logo">Projects</h3>
+                <nav>
+                    <a class="sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
+                    <a class="active sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
+                    <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
+                    <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
+                </nav>
+            </div>
+            <hr class="divider">
         </div>
-        <hr class="divider">
-    </div>
 
-    <div class="offset"></div>
+        <div class="offset"></div>
+    }
 
     <div class="main-part">
         <div class="container">
-            <h1 class="title">Edit Project</h1>
-            <form asp-action="Update" asp-controller="Projects" method="POST">
+            <h1 class="title">@(Model.Id==string.Empty?"Create":"Edit") Project</h1>
+            <form asp-action="@(Model.Id==string.Empty?"Create":"Update")" asp-controller="Projects" method="POST">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="Id" value="@Model.Id" />
 
@@ -53,8 +56,8 @@
                 <div class="mb-3">
                     <label class="form-label">Participants</label>
                     <div class="participant-list" dont-add="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
-                        <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))" />
-                        <span id="none-text" style="@(Model.Participants == null || !Model.Participants.Any() ? "None" : "Block")">None</span>
+                        <input name="Participants" type="hidden" id="participants" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" />
+                        <span id="none-text" style="display: @((Model.Participants == null || !Model.Participants.Any()) ? "block" : "none");">None</span>
                         @if (Model.Participants != null && Model.Participants.Any())
                         {
                             foreach (var user in Model.Participants)
@@ -78,7 +81,7 @@
 
                 <div class="button-container">
                     <button type="submit">Save Changes</button>
-                    <a class="btn" href="@Url.Action("Index", "Tasks", new {projectId = Model.Id})">Cancel</a>
+                    <a class="btn" href="@(Model.Id == string.Empty?Url.Action("Index", "Projects", new {projectsToGet = ProjectsTab.Created}):Url.Action("Index", "Tasks", new {projectId = Model.Id}))">Cancel</a>
                 </div>
             </form>
         </div>

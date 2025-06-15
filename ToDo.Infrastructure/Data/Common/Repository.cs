@@ -29,7 +29,7 @@ namespace ToDo.Infrastructure.Data.Common
         }
         public async Task<bool> Exists<T>(string id) where T : class
         {
-            return await DbSet<T>().FindAsync(id) == null ? true : false;
+            return await DbSet<T>().FindAsync(id) != null;
         }
 
         public async Task<T?> GetByIdAsync<T>(string id) where T : class
@@ -53,6 +53,10 @@ namespace ToDo.Infrastructure.Data.Common
         {
             T entity = await GetByIdAsync<T>(id) ?? throw new KeyNotFoundException();
             DbSet<T>().Remove(entity);
+        }
+        public void DeleteRangeAsync<T>(IEnumerable<T> objects) where T : class
+        {
+            _context.RemoveRange(objects);
         }
 
         public async Task<int> SaveChangesAsync()

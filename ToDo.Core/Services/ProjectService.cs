@@ -38,7 +38,7 @@ namespace ToDo.Core.Services
         }
         public async Task<ProjectVM> GetProjectTasks(string projectId, string callerId)
         {
-            Project project = await _repository.GetByIdAsync<Project>(projectId);
+            Project project = await _repository.AllAsNoTrackingAsync<Project>().Include(p => p.Tasks).FirstAsync(p => p.Id == projectId);
             return new ProjectVM(projectId, new TasksVM(project.Title, project.Tasks.Select(t => new ListedTask(t)).ToList())) { IsCreator = project.OwnerId == callerId };
         }
         public async Task<ProjectDetailsVM> GetProjectDetails(string id, string callerId)

@@ -11,7 +11,7 @@
 }
 
 <div class="client-area">
-    <partial name="ProjectSidebar" model='new ProjectSidebarVM(Model.TasksVM.ProjectName, (int)ProjectSidebarTabs.Tasks, Model.Id!)'></partial>
+        <partial name="ProjectSidebar" model='new ProjectSidebarVM(Model.TasksVM.ProjectName, (int)ProjectSidebarTabs.Tasks, Model.Id!)'></partial>
 
     <div class="container">
         <div class="tasks-columns">
@@ -21,7 +21,16 @@
                 <h2>Pending</h2>
                 @if (Model.IsCreator)
                 {
-                    <a class="create-task-btn" data-status="pending">+ Create Task</a>
+                    <a class="create-task-btn" data-status="pending" href="@Url.Action("Create", "Tasks", new {projectId = Model.Id, status = (int)ToDo.Constants.Enums.TaskStatus.Pending})">+ Create Task</a>
+                }
+
+                @foreach(var task in Model.TasksVM.Tasks.Where(t => t.status == ToDo.Constants.Enums.TaskStatus.Pending))
+                {
+                    <a href="task-wireframes.html" class="task-link" draggable="false">
+                        <div class="task" draggable="true">
+                            <div class="task-header">@task.title</div>
+                        </div>
+                    </a>
                 }
 
                 <a href="task-wireframes.html" class="task-link" draggable="false">
@@ -41,7 +50,7 @@
                 <h2>In Progress</h2>
                 @if (Model.IsCreator)
                 {
-                    <a class="create-task-btn" data-status="inprogress">+ Create Task</a>
+                    <a class="create-task-btn" data-status="inprogress" href="@Url.Action("Create", "Tasks", new {projectId = Model.Id, status = (int)ToDo.Constants.Enums.TaskStatus.InProgress})">+ Create Task</a>
                 }
 
                 <a href="task-api.html" class="task-link" draggable="false">
@@ -61,7 +70,7 @@
                 <h2>Done</h2>
                 @if (Model.IsCreator)
                 {
-                    <a class="create-task-btn" data-status="done">+ Create Task</a>
+                    <a class="create-task-btn" data-status="done" href="@Url.Action("Create", "Tasks", new {projectId = Model.Id, status = (int)ToDo.Constants.Enums.TaskStatus.Done})">+ Create Task</a>
                 }
 
                 <a href="task-database.html" class="task-link" draggable="false">

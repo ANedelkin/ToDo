@@ -7,19 +7,19 @@ using ToDo.Infrastructure.Data.Models;
 
 namespace ToDo.Core.Models
 {
-    public struct ListedLabel
+    public class ListedLabel
     {
-        public readonly string id;
-        public readonly string title;
-        public readonly string? description;
-        public readonly string colorHex;
         public ListedLabel(Label label) : this(label.Id, label.Title, label.Description, label.ColorHex) { }
         public ListedLabel(string id, string title, string? description, string colorHex)
         {
-            this.id = id;
-            this.title = title;
-            this.description = description;
-            this.colorHex = colorHex;
+            Id = id;
+            Title = title;
+            Description = description;
+            ColorHex = colorHex;
         }
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string? Description { get; set; }
+        public string ColorHex { get; set; }
     }
 }

@@ -1,0 +1,90 @@
+﻿.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.project-details-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.participant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.add-participant {
+    margin-top: 2rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+#newUserName {
+    width: 300px;
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.container {
+    padding: 3rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.label-list {
+    margin-top: 1rem;
+}
+
+.label-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.label-checkbox {
+    margin-right: 10px;
+}
+
+.label-list .label-item {
+    padding: 8px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+    .label-list .label-item a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 0.9rem;
+    }
+
+        .label-list .label-item a:hover {
+            text-decoration: underline;
+        }
+
+.label-checkbox {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}

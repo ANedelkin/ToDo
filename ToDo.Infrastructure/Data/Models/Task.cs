@@ -6,7 +6,7 @@ namespace ToDo.Infrastructure.Data.Models
 {
     public class Task
     {
-        public Task(string title, string? description, DateTime dueDate, Constants.TaskStatus taskStatus, string projectId)
+        public Task(string title, string? description, DateTime dueDate, Constants.Enums.TaskStatus taskStatus, string projectId)
         {
             Title = title;
             Description = description;
@@ -25,7 +25,7 @@ namespace ToDo.Infrastructure.Data.Models
         [Required]
         public DateTime DueDate { get; set; }
         [Required]
-        public Constants.TaskStatus TaskStatus { get; set; }
+        public Constants.Enums.TaskStatus TaskStatus { get; set; }
         [Required]
         public string ProjectId { get; set; } = string.Empty;
         [ForeignKey(nameof(ProjectId))]

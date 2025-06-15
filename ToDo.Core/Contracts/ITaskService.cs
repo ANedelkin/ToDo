@@ -12,10 +12,10 @@ namespace ToDo.Core.Contracts
     public interface ITaskService
     {
         public Task<List<ListedTask>> GetProjectTasks(string projectId);
-        public Task<TaskVM> GetTaskDetails(string taskId);
-        public Task AddTask(string projectId, TaskVM task, Constants.TaskStatus status);
+        public Task<TaskVM?> GetTaskDetails(string taskId);
+        public Task AddTask(TaskVM task);
         public Task UpdateTask(string taskId, TaskVM task);
-        public Task ChangeTaskStatus(string taskId, Constants.TaskStatus newStatus);
+        public Task ChangeTaskStatus(string taskId, Constants.Enums.TaskStatus newStatus);
         public Task DeleteTask(string id);
     }
 }

@@ -6,6 +6,7 @@ namespace ToDo.Infrastructure.Data.Models
     {
         public List<Project> ParticipatedProjects { get; set; } = new List<Project>();
         public List<Project> CreatedProjects { get; set; } = new List<Project>();
+        public List<Task> Tasks { get; set; } = new List<Task>();
         public List<Role> Roles { get; set; } = new List<Role>();
     }
 }

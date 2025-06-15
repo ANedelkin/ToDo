@@ -6,7 +6,7 @@
 @model ProjectDetailsVM
 
 @{
-    ViewData["Title"] = "Edit Project";
+    ViewData["Title"] = Model.Id == string.Empty?"Create Project":"Edit Project";
 }
 
 @section Scripts {

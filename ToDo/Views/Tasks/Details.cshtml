@@ -1,0 +1,113 @@
+﻿@using System.Security.Claims
+@using ToDo.Core.Models.ViewModels
+@using ToDo.Constants.Enums
+@model TaskVM
+
+@{
+    ViewData["Title"] = Model.Id == string.Empty ? "Create Task" : "Edit Task";
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/details.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const dateInput = document.querySelector("#DueDate");
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+            }
+        });
+
+        function toggleLabel(labelId) {
+            const labelsInput = document.getElementById("labelsInput");
+            const existingValue = labelsInput.value.split(",");
+            if (existingValue.includes(labelId.toString())) {
+                labelsInput.value = existingValue.filter(id => id !== labelId.toString()).join(",");
+            } else {
+                existingValue.push(labelId.toString());
+                labelsInput.value = existingValue.join(",");
+            }
+        }
+    </script>
+}
+
+<div class="client-area">
+    <div class="main-part">
+        <div class="container">
+            <h1 class="title">@ViewData["Title"]</h1>
+
+            <form action="/tasks/create" method="POST">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="ProjectId" value="@Model.ProjectId" />
+                <input type="hidden" name="Labels" id="labelsInput" value="@string.Join(",", Model.Labels.Select(l => l.Id))" />
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Title" class="form-control" placeholder=" " />
+                    <label asp-for="Title">Task Title</label>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea asp-for="Description" class="form-control" style="height: 150px;" placeholder=" "></textarea>
+                    <label asp-for="Description">Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="DueDate" class="form-control" type="date" id="DueDate" />
+                    <label asp-for="DueDate">Due Date</label>
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Participants</label>
+                    <div class="participant-list" dont-add="@User.FindFirstValue(ClaimTypes.NameIdentifier)">
+                        <input name="Participants" type="hidden" id="participants" value="@String.Join(',', Model.Participants.Select(p => p.Id))" />
+                        <span id="none-text" style="display: @(!Model.Participants.Any() ? "block" : "none");">None</span>
+                        @if (Model.Participants.Any())
+                        {
+                            foreach (var user in Model.Participants)
+                            {
+                                <div class="participant-item d-flex justify-content-between align-items-center p-2 mb-2 bg-light border rounded">
+                                    <span>@user.Username</span>
+                                    <button type="button" class="leave-btn" data-user-id="@user.Id" onclick="removeParticipant(this)">Remove</button>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <span asp-validation-for="Participants" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3 d-flex gap-2">
+                    <input id="newUserName" class="form-control" placeholder=" " />
+                    <label>Participant Username</label>
+                    <button type="button" onclick="addParticipant()">Add</button>
+                    <span id="error" class="text-danger" style="display:none;"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Labels</label>
+                    <div class="label-list">
+                        @foreach (var label in Model.AllLabels)
+                        {
+                            <div class="label-item d-flex justify-content-between align-items-center">
+                                <label>
+                                    <input type="checkbox" class="label-checkbox" value="@label.Id" @(Model.Labels.Any(l => l.Id == label.Id) ? "checked" : "") onchange="toggleLabel(@label.Id)" />
+                                    @label.Title
+                                </label>
+                                <a href="@Url.Action("Details", "Labels", new { id = label.Id })" class="btn btn-link">View</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit">Save Changes</button>
+                    <a class="btn" href="@Url.Action("Index", "Tasks")">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

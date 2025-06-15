@@ -18,20 +18,7 @@
 <div class="client-area">
     @if (Model.Id != string.Empty)
     {
-        <div class="sidebar-wrapper">
-            <div class="sidebar">
-                <h3 class="logo">Projects</h3>
-                <nav>
-                    <a class="sideMenuTab" href="@Url.Action("Index", "Tasks", new { projectId = Model.Id })">Tasks</a>
-                    <a class="active sideMenuTab" href="@Url.Action("Details", "Projects", new { id = Model.Id })">Project Details</a>
-                    <a class="sideMenuTab" href="@Url.Action("Index", "Labels", new { id = Model.Id })">Labels</a>
-                    <a class="sideMenuTab" href="@Url.Action("Index", "Roles", new { id = Model.Id })">Roles</a>
-                </nav>
-            </div>
-            <hr class="divider">
-        </div>
-
-        <div class="offset"></div>
+        <partial name="ProjectSidebar" model='new ProjectSidebarVM(Model.Title, (int)ProjectSidebarTabs.Details, Model.Id!)'></partial>
     }
 
     <div class="main-part">

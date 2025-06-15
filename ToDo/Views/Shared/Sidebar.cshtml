@@ -1,0 +1,23 @@
+﻿@using ToDo.Core.Models.ViewModels
+@model SidebarVM
+
+<div class="sidebar-wrapper">
+    <div class="sidebar">
+        <h3 class="logo" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            @Model.Title
+        </h3>
+        <nav>
+            @{
+                int i = 0;
+                foreach(var pair in Model)
+                {
+                    <a class="@(Model.SelectionIndex == i ? "active" : "") sideMenuTab" href="@pair.Value">@pair.Key</a>
+                    i++;
+                }
+            }
+        </nav>
+    </div>
+    <hr class="divider">
+</div>
+
+<div class="offset"></div>

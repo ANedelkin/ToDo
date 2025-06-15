@@ -8,17 +8,12 @@
 }
 
 <div class="client-area">
-    <div class="sidebar-wrapper">
-        <div class="sidebar">
-            <h3 class="logo">Projects</h3>
-            <nav>
-                <a class="@(projectsTab ? "active " : "")sideMenuTab" href="@Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Participated })">Participated Projects</a>
-                <a class="@(!projectsTab ? "active " : "")sideMenuTab" href="@Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Created })">Created Projects</a>
-            </nav>
-        </div>
-        <hr class="divider">
-    </div>
-    <div class="offset"></div>
+    <partial name="Sidebar" model='new SidebarVM("Projects", (int)Model.ProjectsTab)
+    {
+    	{"Participated Projects", Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Participated })!},
+    	{"Created Projects", Url.Action("Index", "Projects", new { projectsToGet = (int)ProjectsTab.Created })!},
+    }'>
+    </partial>
     <div class="main-part">
         <div class="projects-list">
             <div class="greeting">What will you work on today, <strong>@Model.UserName</strong>?</div>

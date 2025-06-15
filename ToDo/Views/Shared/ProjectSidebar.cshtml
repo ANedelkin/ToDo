@@ -1,0 +1,11 @@
+﻿@using ToDo.Core.Models.ViewModels
+@model ProjectSidebarVM
+
+<partial name="Sidebar" model='new SidebarVM(Model.Title, Model.SelectionIndex)
+{
+	{"Tasks", Url.Action("Index", "Tasks", new { projectId = Model.ProjectId })!},
+	{"Project Details", Url.Action("Details", "Projects", new { id = Model.ProjectId })!},
+	{"Labels", Url.Action("Index", "Labels", new { projectId = Model.ProjectId })!},
+	{"Roles", Url.Action("Index", "Roles", new { projectId = Model.ProjectId })!}
+}'>
+</partial>
